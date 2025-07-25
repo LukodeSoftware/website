@@ -587,6 +587,32 @@ footer {
     transform: translateY(-3px);
 }
 
+#privacy-policy-link {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#privacy-policy-link:hover {
+  color: var(--highlight-hover);
+}
+
+.privacy-policy-container {
+  position: relative;
+  align-items: center;
+  background-color: var(--bg-color);
+  margin: 150px 50px 50px 50px;
+  }
+
+#privacy-policy-header {
+  color: var(--);
+  font-size: 28px;
+}
+
+.privacy-policy-container h2 {
+  font-size: 24px;
+  }
+
 /* Video Container */
 .video-container {
     background-color: var(--card-bg);

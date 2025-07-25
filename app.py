@@ -66,7 +66,10 @@ def custom_restaurant_apps():
     """Custom restaurant apps service page"""
     return render_template('custom_restaurant_apps.html')
 
-# Coming Soon Page
+
+@app.route('/privacypolicy')
+def privacypolicy():
+    return render_template('privacypolicy.html')
 
 
 @app.route('/coming-soon')
