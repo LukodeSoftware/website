@@ -600,7 +600,6 @@ footer {
 .privacy-policy-container {
   position: relative;
   align-items: center;
-  background-color: var(--bg-color);
   margin: 150px 50px 50px 50px;
   }
 
@@ -612,6 +611,11 @@ footer {
 .privacy-policy-container h2 {
   font-size: 24px;
   }
+
+#blog-link {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
 
 /* Video Container */
 .video-container {

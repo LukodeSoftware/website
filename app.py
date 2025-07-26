@@ -72,6 +72,11 @@ def privacypolicy():
     return render_template('privacypolicy.html')
 
 
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
+
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
