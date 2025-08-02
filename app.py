@@ -16,7 +16,7 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 @app.route('/home')
 def home():
     """Home page with all services"""
-    return render_template('index.html')
+    return render_template('index.html', page_title="Lukode - Unique Software Solutions")
 
 # Website Building Service
 
