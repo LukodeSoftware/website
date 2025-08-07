@@ -22,7 +22,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">
                 <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode" class="logo-img">
@@ -30,9 +30,18 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" aria-label="Back to homepage">Main Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog" style="color: #3B82F6;">Blog</a>
+                    </li>
+                </ul>
         </div>
     </nav>
-    <section class="py-5 light-bg">
+    <section id="blog" class="py-5 light-bg">
         <div class="container">
         <article class="dark-bg p-5 rounded shadow-sm mt-5">
             <h1 class="mb-4">The EU Accessibility Rules Are Now in Force — Is Your Business Compliant?</h1>

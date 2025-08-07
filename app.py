@@ -24,7 +24,7 @@ def home():
 @app.route('/services/website-building')
 def website_building():
     """Website building service page"""
-    return render_template('website_building.html')
+    return render_template('website_building.html', page_title="Lukode - Professional Website Building")
 
 # Software Testing Service
 
@@ -32,7 +32,7 @@ def website_building():
 @app.route('/services/software-testing')
 def software_testing():
     """Software testing service page"""
-    return render_template('software_testing.html')
+    return render_template('software_testing.html', page_title="Lukode - Software Testing")
 
 # AWS Architecture & Consulting Service
 
@@ -40,7 +40,7 @@ def software_testing():
 @app.route('/services/aws-architecture-consulting')
 def aws_architecture_consulting():
     """AWS architecture & consulting service page"""
-    return render_template('aws_architecture_consulting.html')
+    return render_template('aws_architecture_consulting.html', page_title="Lukode - AWS Architecture & Consulting")
 
 # AI Solutions Service
 
@@ -48,7 +48,7 @@ def aws_architecture_consulting():
 @app.route('/services/ai-solutions')
 def ai_solutions():
     """AI solutions service page"""
-    return render_template('ai_solutions.html')
+    return render_template('ai_solutions.html', page_title="Lukode - AI Solutions")
 
 # Cloud Migration to AWS Service
 
@@ -56,7 +56,7 @@ def ai_solutions():
 @app.route('/services/cloud-migration-to-aws')
 def cloud_migration_to_aws():
     """Cloud migration to AWS service page"""
-    return render_template('cloud_migration_to_aws.html')
+    return render_template('cloud_migration_to_aws.html', page_title="Lukode - Cloud Migration to AWS")
 
 # Custom Restaurant Apps Service
 
@@ -64,23 +64,23 @@ def cloud_migration_to_aws():
 @app.route('/services/custom-restaurant-apps')
 def custom_restaurant_apps():
     """Custom restaurant apps service page"""
-    return render_template('custom_restaurant_apps.html')
+    return render_template('custom_restaurant_apps.html', page_title="Lukode - Custom Restaurant Apps")
 
 
 @app.route('/privacypolicy')
 def privacypolicy():
-    return render_template('privacypolicy.html')
+    return render_template('privacypolicy.html', page_title="Lukode - Privacy Policy")
 
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html')
+    return render_template('blog.html', page_title="Lukode - Blog")
 
 
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
-    return render_template('coming_soon.html')
+    return render_template('coming_soon.html', page_title="Lukode - Unique Software Solutions")
 
 
 @app.route('/contact', methods=['POST'])
