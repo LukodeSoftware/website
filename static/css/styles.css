@@ -615,7 +615,8 @@ footer {
 
 #privacy-policy-header {
   color: var(--);
-  font-size: 28px;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .privacy-policy-container h2 {
