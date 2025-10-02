@@ -18,53 +18,29 @@ def home():
     """Home page with all services"""
     return render_template('index.html', page_title="Lukode - Unique Software Solutions")
 
-# Website Building Service
+
+# Compliance Audits Service
+
+@app.route('/services/compliance-audits')
+def compliance_audits():
+    """WCAG compliance audits service page"""
+    return render_template('compliance_audits.html', page_title="Lukode - Compliance Audits")
 
 
-@app.route('/services/website-building')
-def website_building():
-    """Website building service page"""
-    return render_template('website_building.html', page_title="Lukode - Professional Website Building")
+# SEO Enhancements Service
+
+@app.route('/services/seo')
+def seo_enhancements():
+    """SEO enhancements service page"""
+    return render_template('seo_enhancements.html', page_title="Lukode - SEO Enhancements")
+
 
 # Software Testing Service
-
 
 @app.route('/services/software-testing')
 def software_testing():
     """Software testing service page"""
     return render_template('software_testing.html', page_title="Lukode - Software Testing")
-
-# AWS Architecture & Consulting Service
-
-
-@app.route('/services/aws-architecture-consulting')
-def aws_architecture_consulting():
-    """AWS architecture & consulting service page"""
-    return render_template('aws_architecture_consulting.html', page_title="Lukode - AWS Architecture & Consulting")
-
-# AI Solutions Service
-
-
-@app.route('/services/ai-solutions')
-def ai_solutions():
-    """AI solutions service page"""
-    return render_template('ai_solutions.html', page_title="Lukode - AI Solutions")
-
-# Cloud Migration to AWS Service
-
-
-@app.route('/services/cloud-migration-to-aws')
-def cloud_migration_to_aws():
-    """Cloud migration to AWS service page"""
-    return render_template('cloud_migration_to_aws.html', page_title="Lukode - Cloud Migration to AWS")
-
-# Custom Restaurant Apps Service
-
-
-@app.route('/services/custom-restaurant-apps')
-def custom_restaurant_apps():
-    """Custom restaurant apps service page"""
-    return render_template('custom_restaurant_apps.html', page_title="Lukode - Custom Restaurant Apps")
 
 
 @app.route('/privacypolicy')
@@ -105,18 +81,12 @@ def contact():
         # Determine which page the form was submitted from to redirect back properly
         referrer = request.referrer or ''
 
-        if 'website-building' in referrer:
-            return redirect(url_for('website_building', _anchor='contact'))
+        if 'compliance_audits' in referrer:
+            return redirect(url_for('compliance_audits', _anchor='contact'))
         elif '/services/software-testing' in referrer:
             return redirect(url_for('software_testing', _anchor='contact'))
-        elif '/services/aws-architecture-consulting' in referrer:
-            return redirect(url_for('aws_architecture_consulting', _anchor='contact'))
-        elif '/services/ai-solutions' in referrer:
-            return redirect(url_for('ai_solutions', _anchor='contact'))
-        elif '/services/cloud-migration-to-aws' in referrer:
-            return redirect(url_for('cloud_migration_to_aws', _anchor='contact'))
-        elif '/services/custom-restaurant-apps' in referrer:
-            return redirect(url_for('custom_restaurant_apps', _anchor='contact'))
+        elif '/services/seo_enhancements' in referrer:
+            return redirect(url_for('seo_enhancements', _anchor='contact'))
         else:
             return redirect(url_for('home', _anchor='contact'))
     except Exception as e:
@@ -126,18 +96,12 @@ def contact():
         # Determine which page the form was submitted from to redirect back properly
         referrer = request.referrer or ''
 
-        if 'website-building' in referrer:
-            return redirect(url_for('website_building', _anchor='contact'))
+        if 'compliance_audits' in referrer:
+            return redirect(url_for('compliance_audits', _anchor='contact'))
         elif '/services/software-testing' in referrer:
             return redirect(url_for('software_testing', _anchor='contact'))
-        elif '/services/aws-architecture-consulting' in referrer:
-            return redirect(url_for('aws_architecture_consulting', _anchor='contact'))
-        elif '/services/ai-solutions' in referrer:
-            return redirect(url_for('ai_solutions', _anchor='contact'))
-        elif '/services/cloud-migration-to-aws' in referrer:
-            return redirect(url_for('cloud_migration_to_aws', _anchor='contact'))
-        elif '/services/custom-restaurant-apps' in referrer:
-            return redirect(url_for('custom_restaurant_apps', _anchor='contact'))
+        elif '/services/seo_enhancements' in referrer:
+            return redirect(url_for('seo_enhancements', _anchor='contact'))
         else:
             return redirect(url_for('home', _anchor='contact'))
 
