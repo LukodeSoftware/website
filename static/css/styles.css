@@ -727,8 +727,11 @@ footer {
 .about-text {
     color: var(--text-muted);
     font-size: 1.05rem;
-    margin-bottom: 1.5rem;
     line-height: 1.8;
+}
+
+.about-h5 {
+    font-weight: 500;
 }
 
 .about-image-container {
