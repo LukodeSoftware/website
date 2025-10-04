@@ -16,7 +16,7 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 @app.route('/home')
 def home():
     """Home page with all services"""
-    return render_template('index.html', page_title="Lukode - Unique Software Solutions")
+    return render_template('index.html', page_title="Lukode - Making Websites Worth Visiting")
 
 
 # Compliance Audits Service
@@ -56,7 +56,7 @@ def blog():
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
-    return render_template('coming_soon.html', page_title="Lukode - Unique Software Solutions")
+    return render_template('coming_soon.html', page_title="Lukode - Making Websites Worth Visiting")
 
 
 @app.route('/contact', methods=['POST'])
