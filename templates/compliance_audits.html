@@ -3,15 +3,199 @@
 {% block title %}{{ page_title }}{% endblock %}
 {% block content %}
 
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">WCAG Compliance Audits</h1>
+                    <h2 class="my-4">Making your website accessible for everyone</h2> 
+                    <h3 class="mb-5">We identify accessibility barriers and provide fixes to ensure your website meets WCAG standards. Accessible websites are not only inclusive — they reach more people, improve usability, and reduce legal risks</h3>
+                    <a href="#contact" class="btn btn-primary btn-lg px-5 py-3">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefit-section py-5 dark-bg">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Benefits of WCAG Compliance Audits</h2>
+                    <p class="section-subtitle mb-5">Discover how making your website accessible can improve usability and reduce legal risks.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-3 mb-4">
+                    <div class="service-card">
+                        <div class="icon-container">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <h4>Enhanced Accessibility</h4>
+                        <p>Ensure all users, including those with disabilities, can navigate and interact with your website effortlessly.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="service-card">
+                        <div class="icon-container">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h4>Reduced Legal Risk</h4>
+                        <p>Stay compliant with WCAG standards and minimize the risk of accessibility-related lawsuits.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="service-card">
+                        <div class="icon-container">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h4>Stronger Brand Reputation</h4>
+                        <p>Show your commitment to inclusivity and social responsibility, building trust with your audience.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="service-card">
+                        <div class="icon-container">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h4>Improved User Experience</h4>
+                        <p>Remove barriers and create a smooth, intuitive, and frustration-free digital experience.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Who This Is For Section -->
+    <section id="who-for" class="for-clients-section py-5 light-bg">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title">Who We Help</h2>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="audience-card">
+                        <h4>Small Businesses</h4>
+                        <p>Ensuring your website is accessible to all users, helping you reach more customers and provide an inclusive online experience.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="audience-card">
+                        <h4>Startups</h4>
+                        <p>Launch new digital products with confidence, fully compliant with accessibility standards from day one.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="audience-card">
+                        <h4>Software Companies</h4>
+                        <p>Improve existing applications by identifying accessibility barriers and making them usable for everyone.</p>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="audience-card">
+                        <h4>Enterprises</h4>
+                        <p>Implementing rigorous testing protocols for large-scale projects.</p>
+                    </div>
+                </div> -->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="audience-card">
+                        <h4>Web Developers</h4>
+                        <p>Validate your projects against WCAG standards and provide actionable recommendations to enhance usability and compliance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="for-clients-section py-5 dark-bg">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    What is a WCAG Compliance Audit?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A WCAG Compliance Audit evaluates your website against the Web Content Accessibility Guidelines (WCAG) to ensure it is accessible to all users, including those with disabilities.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Why is accessibility important for my website?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Accessible websites reach more users, improve usability, enhance SEO, and reduce legal risks related to digital accessibility compliance.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Which WCAG standards do you test against?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We test against WCAG 2.1 standards, covering levels A, AA, and AAA where applicable, ensuring your site meets recognized accessibility requirements.
+                                </div>
+                           </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    How long does a WCAG audit take?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    The duration depends on the size and complexity of your website. Typically, audits for small to medium websites take 1–2 weeks, including reporting and recommendations.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Do you offer support for implementing the fixes?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely. We can work with your development team or handle the updates ourselves to ensure all accessibility issues are resolved effectively.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5 dark-bg">
+    <section id="contact" class="py-5 light-bg">
         <div class="container">
             <div class="row text-center">
                 <div class="col-12">
                     <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-subtitle mb-5">Ready to discuss your project? Reach out to us!</p>
+                    <p class="section-subtitle mb-5">Want to make your website accessible, reliable, and user-friendly? Reach out to us!</p>
                 </div>
             </div>
             <div class="row justify-content-center">
