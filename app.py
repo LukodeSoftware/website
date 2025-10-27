@@ -50,7 +50,17 @@ def privacypolicy():
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html', page_title="Lukode - Blog")
+    return render_template('blog/blog.html', page_title="Lukode - Blog")
+
+
+@app.route('/eu-accessibility-act-compliance')
+def eu_accessibility_act_compliance():
+    return render_template('blog/eu_accessibility_act_compliance.html', page_title="EU Accessibility Rules Are Now in Force — Is Your Business Compliant?")
+
+
+@app.route('/accessibility-report')
+def accessibility_report():
+    return render_template('blog/accessibility_report.html', page_title="Lukode - Accessibility Report")
 
 
 @app.route('/coming-soon')

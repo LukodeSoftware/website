@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukode - Accessibility Report</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode" class="logo-img">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" aria-label="Back to homepage">Main Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#blog" style="color: #3B82F6;">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Post -->
+    <section id="blog" class="py-5 light-bg">
+        <div class="container">
+            <article class="dark-bg p-5 rounded shadow-sm mt-5">
+                <h1 class="mb-4">The Most Common Accessibility Issues Found on Business Websites (and How to Fix Them)</h1>
+
+                <p class="lead">Accessibility isn’t just about compliance — it’s about <strong>ensuring every user can access your content, services, and products</strong>. However, most websites today still fail to meet even basic accessibility standards like <strong>WCAG 2.1 Level AA</strong>.</p>
+
+                <p>At <strong>Lukode</strong>, we regularly audit websites and applications for accessibility. Below is a summary of the <strong>most common issues we find</strong> — and practical tips for how to fix them.</p>
+
+                <hr class="my-5">
+
+                <h2>1. Missing or Incorrect Alternative Text</h2>
+                <p><strong>Problem:</strong> Many websites still use decorative or informative images without <code>alt</code> text. This makes them invisible to screen readers, which visually impaired users rely on.</p>
+                <p><strong>Fix:</strong> Add descriptive <code>alt</code> attributes to all meaningful images. For decorative ones, use empty <code>alt=""</code>.</p>
+                <div class="alert alert-info mt-3">
+                    <strong>Tip:</strong> Don’t use filenames or generic phrases like “image123.jpg” or “photo of product.” Describe what’s shown or what it means in context.
+                </div>
+
+                <h2 class="mt-5">2. Poor Color Contrast</h2>
+                <p><strong>Problem:</strong> Text that doesn’t contrast enough with the background (like light gray on white) is unreadable for many users, especially with vision impairments or on mobile screens.</p>
+                <p><strong>Fix:</strong> Ensure text meets the minimum contrast ratio — <strong>4.5:1 for normal text</strong>, <strong>3:1 for large text</strong>. Use online contrast checkers like <a href="https://contrast-ratio.com" target="_blank">contrast-ratio.com</a>.</p>
+
+                <h2 class="mt-5">3. Inaccessible Forms</h2>
+                <p><strong>Problem:</strong> Many forms lack clear labels or use placeholders instead of proper <code>&lt;label&gt;</code> elements. This makes it difficult for assistive technologies to identify what each field is for.</p>
+                <p><strong>Fix:</strong> Always associate <code>&lt;label&gt;</code> with its corresponding input using <code>for</code> and <code>id</code> attributes, and provide descriptive error messages when input is invalid.</p>
+
+                <h2 class="mt-5">4. Keyboard Navigation Issues</h2>
+                <p><strong>Problem:</strong> Some interactive elements (like dropdowns or modals) are only accessible with a mouse.</p>
+                <p><strong>Fix:</strong> Test your site using only the <strong>Tab, Enter, Space</strong> and<strong> arrow</strong> keys. Make sure focus indicators are visible, and users can navigate and interact without using a mouse.</p>
+
+                <h2 class="mt-5">5. Missing Page Structure and Headings</h2>
+                <p><strong>Problem:</strong> Many websites use headings inconsistently — or not at all. Without semantic structure (<code>&lt;h1&gt; – &lt;h6&gt;</code>), screen readers can’t provide proper navigation.</p>
+                <p><strong>Fix:</strong> Use logical heading hierarchy and landmarks (like <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>) to create a predictable reading flow.</p>
+
+                <h2 class="mt-5">6. Dynamic Content Without ARIA Roles</h2>
+                <p><strong>Problem:</strong> Modern websites often use JavaScript components (like modals or sliders) without ARIA attributes, making them invisible to assistive tools.</p>
+                <p><strong>Fix:</strong> Use <strong>ARIA roles</strong> and attributes like <code>aria-live</code> or <code>aria-expanded</code> to communicate changes in dynamic content.</p>
+
+                <h2 class="mt-5">7. Missing Focus States</h2>
+                <p><strong>Problem:</strong> Custom-designed buttons or links often remove the default focus outline, leaving users unsure where they are when navigating with a keyboard.</p>
+                <p><strong>Fix:</strong> Keep or style the focus outline so it’s visible. It’s a key accessibility feature — not a design flaw.</p>
+
+                <h2 class="mt-5">8. Videos Without Captions</h2>
+                <p><strong>Problem:</strong> Many businesses publish promotional or educational videos without captions, excluding users with hearing impairments.</p>
+                <p><strong>Fix:</strong> Always include captions or transcripts for video content. Tools like YouTube and Descript make this easy.</p>
+
+                <hr class="my-5">
+
+                <h2>Why This Matters</h2>
+                <p>Beyond compliance, accessibility is about <strong>better user experience for everyone</strong>. It improves usability, SEO, and brand reputation — and prevents costly legal risks.</p>
+
+                <div class="alert alert-success mt-4">
+                    <strong>Bonus:</strong> Accessible design also benefits mobile users, older adults, and people with temporary impairments (like a broken arm or bright sunlight on the screen).
+                </div>
+
+                <h2 class="mt-5">How to Get an Accessibility Audit</h2>
+                <p>Most accessibility issues can be identified and fixed within days with the right tools and expertise. At <strong>Lukode</strong>, we offer:</p>
+                <ul>
+                    <li>Comprehensive WCAG 2.1 audits with actionable reports</li>
+                    <li>Fix implementation and verification</li>
+                    <li>Ongoing accessibility monitoring</li>
+                </ul>
+
+                <div class="text-center mt-5">
+                    <a href="{{ url_for('software_testing') }}#contact" class="btn btn-primary btn-lg">Request Your Accessibility Audit</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 Lukode Łukasz Jaroszewski. All rights reserved. | <a href="{{ url_for('privacypolicy') }}" id="privacy-policy-link">Privacy Policy</a></p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="social-links">
+                        <a href="{{ url_for('blog') }}" id="blog-link">Blog</a>
+                        <a href="https://www.facebook.com/profile.php?id=61575671537574" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope" target="_blank"></i></a>
+                        <a href="https://www.instagram.com/lukode.software/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/lukode" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
