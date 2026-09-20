@@ -16,31 +16,33 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key")
 @app.route('/home')
 def home():
     """Home page with all services"""
-    return render_template('index.html', page_title="Lukode - Making Websites Worth Visiting")
+    return render_template('index.html', page_title="Lukode AI & Software Quality | Independent Testing & Quality Engineering")
 
 
 # Compliance Audits Service
 
 @app.route('/services/compliance-audits')
+@app.route('/services/accessibility-testing')
 def compliance_audits():
-    """WCAG compliance audits service page"""
-    return render_template('compliance_audits.html', page_title="Lukode - Compliance Audits")
+    """Accessibility & WCAG testing service page"""
+    return render_template('compliance_audits.html', page_title="Lukode - Accessibility & WCAG Testing")
 
 
-# SEO Enhancements Service
+# AI Testing & Validation Service
 
 @app.route('/services/seo')
-def seo_enhancements():
-    """SEO enhancements service page"""
-    return render_template('seo_enhancements.html', page_title="Lukode - SEO Enhancements")
+@app.route('/services/ai-testing')
+def ai_testing():
+    """AI Testing & Validation service page"""
+    return render_template('ai_testing.html', page_title="Lukode - AI Testing & Validation")
 
 
 # Software Testing Service
 
 @app.route('/services/software-testing')
 def software_testing():
-    """Software testing service page"""
-    return render_template('software_testing.html', page_title="Lukode - Software Testing")
+    """Software testing and quality engineering service page"""
+    return render_template('software_testing.html', page_title="Lukode - Software Testing & Quality Engineering")
 
 
 @app.route('/privacypolicy')
@@ -49,6 +51,7 @@ def privacypolicy():
 
 
 @app.route('/blog')
+@app.route('/insights')
 def blog():
     return render_template('blog/blog.html', page_title="Lukode - Blog")
 
@@ -66,7 +69,7 @@ def accessibility_report():
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
-    return render_template('coming_soon.html', page_title="Lukode - Making Websites Worth Visiting")
+    return render_template('coming_soon.html', page_title="Lukode - Coming Soon")
 
 
 @app.route('/contact', methods=['POST'])
@@ -91,12 +94,12 @@ def contact():
         # Determine which page the form was submitted from to redirect back properly
         referrer = request.referrer or ''
 
-        if 'compliance_audits' in referrer:
+        if 'compliance-audits' in referrer or 'accessibility-testing' in referrer:
             return redirect(url_for('compliance_audits', _anchor='contact'))
-        elif '/services/software-testing' in referrer:
+        elif 'software-testing' in referrer:
             return redirect(url_for('software_testing', _anchor='contact'))
-        elif '/services/seo_enhancements' in referrer:
-            return redirect(url_for('seo_enhancements', _anchor='contact'))
+        elif 'ai-testing' in referrer or 'seo' in referrer:
+            return redirect(url_for('ai_testing', _anchor='contact'))
         else:
             return redirect(url_for('home', _anchor='contact'))
     except Exception as e:
@@ -106,12 +109,12 @@ def contact():
         # Determine which page the form was submitted from to redirect back properly
         referrer = request.referrer or ''
 
-        if 'compliance_audits' in referrer:
+        if 'compliance-audits' in referrer or 'accessibility-testing' in referrer:
             return redirect(url_for('compliance_audits', _anchor='contact'))
-        elif '/services/software-testing' in referrer:
+        elif 'software-testing' in referrer:
             return redirect(url_for('software_testing', _anchor='contact'))
-        elif '/services/seo_enhancements' in referrer:
-            return redirect(url_for('seo_enhancements', _anchor='contact'))
+        elif 'ai-testing' in referrer or 'seo' in referrer:
+            return redirect(url_for('ai_testing', _anchor='contact'))
         else:
             return redirect(url_for('home', _anchor='contact'))
 
