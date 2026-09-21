@@ -1135,3 +1135,16 @@ footer {
         margin-bottom: 10px;
     }
 }
+
+/* Highlight hover link with constant underline */
+.highlight-hover-link {
+    color: var(--text-color) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease-in-out;
+}
+
+.highlight-hover-link:hover {
+    color: var(--highlight-color) !important;
+    text-decoration: underline !important;
+}

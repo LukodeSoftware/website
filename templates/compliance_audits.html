@@ -10,6 +10,21 @@
 {% block twitter_title %}{{ page_title }}{% endblock %}
 {% block twitter_description %}Expert WCAG testing and accessibility audit services. Ensure your digital products meet WCAG 2.1 & 2.2 AA standards and comply with the European Accessibility Act.{% endblock %}
 
+{% block extra_css %}
+<style>
+.highlight-hover-link {
+    color: var(--text-color) !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease-in-out;
+}
+.highlight-hover-link:hover {
+    color: var(--highlight-color) !important;
+    text-decoration: underline !important;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
     <!-- Hero Section -->
@@ -51,7 +66,7 @@
                             <i class="fas fa-balance-scale"></i>
                         </div>
                         <h4>Regulatory Compliance</h4>
-                        <p>Meet WCAG 2.1 and 2.2 AA standards to comply with the European Accessibility Act (EAA), ADA, and Section 508. Penalties across the EU reach from €100,000 up to €1,000,000+ or service suspension. <a href="{{ url_for('eaa_penalties') }}" class="text-primary d-inline-block mt-2">See EAA penalty guide &rarr;</a></p>
+                        <p>Meet WCAG 2.1 and 2.2 AA standards to comply with the European Accessibility Act (EAA), ADA, and Section 508. Penalties across the EU reach from €100,000 up to €1,000,000+ or service suspension. <a href="{{ url_for('eaa_penalties') }}" class="highlight-hover-link d-inline-block mt-2">See EAA penalty guide &rarr;</a></p>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 mb-4">
@@ -157,7 +172,7 @@
                             </h2>
                             <div id="collapsePenalties" class="accordion-collapse collapse" aria-labelledby="headingPenalties" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body">
-                                    Since June 2025, non-compliance with the EAA carries severe financial and operational sanctions across EU member states. Statutory fines reach up to <strong>€100,000 per violation in Germany</strong>, <strong>€250,000 in France</strong>, and <strong>up to €1,000,000 (or up to 10% of annual turnover) in Spain and the Netherlands</strong>. Regulators can also issue court injunctions to halt digital sales, block checkout flows, or levy daily recurring coercive penalties until barriers are fixed. For a comprehensive overview by country, read our guide on <a href="{{ url_for('eaa_penalties') }}" class="text-primary fw-semibold">European Accessibility Act Penalties: What Non-Compliance Costs Businesses</a>.
+                                    Since June 2025, non-compliance with the EAA carries severe financial and operational sanctions across EU member states. Statutory fines reach up to <strong>€100,000 per violation in Germany</strong>, <strong>€250,000 in France</strong>, and <strong>up to €1,000,000 (or up to 10% of annual turnover) in Spain and the Netherlands</strong>. Regulators can also issue court injunctions to halt digital sales, block checkout flows, or levy daily recurring coercive penalties until barriers are fixed. For a comprehensive overview by country, read our guide on <a href="{{ url_for('eaa_penalties') }}" class="highlight-hover-link fw-semibold">European Accessibility Act Penalties: What Non-Compliance Costs Businesses</a>.
                                 </div>
                             </div>
                         </div>
