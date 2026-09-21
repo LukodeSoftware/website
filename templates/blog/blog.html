@@ -3,7 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Lukode</title>
+    <title>{{ page_title if page_title else "Lukode AI & Software Quality Blog | Insights & QA Engineering" }}</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
+    <meta name="keywords" content="AI testing blog, software testing insights, QA engineering articles, WCAG compliance guide, digital accessibility blog">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lukode.net/blog">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lukode.net/blog">
+    <meta property="og:title" content="{{ page_title if page_title else 'Lukode AI & Software Quality Blog | Insights & QA Engineering' }}">
+    <meta property="og:description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
+    <meta property="og:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
+    <meta property="og:site_name" content="Lukode AI & Software Quality">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://lukode.net/blog">
+    <meta name="twitter:title" content="{{ page_title if page_title else 'Lukode AI & Software Quality Blog | Insights & QA Engineering' }}">
+    <meta name="twitter:description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
+    <meta name="twitter:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
+    
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
     <!-- Bootstrap CSS -->
@@ -25,7 +48,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode" class="logo-img">
+                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode AI & Software Quality" class="logo-img">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -88,8 +111,7 @@
                 <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
                     <div class="social-links">
                         <a href="{{ url_for('blog') }}" id="blog-link">Blog</a>
-                        <a href="https://www.facebook.com/profile.php?id=61575671537574" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope" target="_blank"></i></a>
+                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope"></i></a>
                         <a href="https://www.linkedin.com/company/lukode" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>

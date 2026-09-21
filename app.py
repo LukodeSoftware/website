@@ -1,6 +1,6 @@
 import os
 import logging
-from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for, send_from_directory
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -25,7 +25,7 @@ def home():
 @app.route('/services/accessibility-testing')
 def compliance_audits():
     """Accessibility & WCAG testing service page"""
-    return render_template('compliance_audits.html', page_title="Lukode - Accessibility & WCAG Testing")
+    return render_template('compliance_audits.html', page_title="Accessibility & WCAG Testing Services | Lukode")
 
 
 # AI Testing & Validation Service
@@ -34,7 +34,7 @@ def compliance_audits():
 @app.route('/services/ai-testing')
 def ai_testing():
     """AI Testing & Validation service page"""
-    return render_template('ai_testing.html', page_title="Lukode - AI Testing & Validation")
+    return render_template('ai_testing.html', page_title="AI Testing & Validation Services | LLM & AI Agent QA | Lukode")
 
 
 # Software Testing Service
@@ -42,34 +42,46 @@ def ai_testing():
 @app.route('/services/software-testing')
 def software_testing():
     """Software testing and quality engineering service page"""
-    return render_template('software_testing.html', page_title="Lukode - Software Testing & Quality Engineering")
+    return render_template('software_testing.html', page_title="Software Testing & Quality Engineering Services | Lukode")
 
 
 @app.route('/privacypolicy')
 def privacypolicy():
-    return render_template('privacypolicy.html', page_title="Lukode - Privacy Policy")
+    return render_template('privacypolicy.html', page_title="Privacy Policy | Lukode AI & Software Quality")
 
 
 @app.route('/blog')
 @app.route('/insights')
 def blog():
-    return render_template('blog/blog.html', page_title="Lukode - Blog")
+    return render_template('blog/blog.html', page_title="Lukode AI & Software Quality Blog | Insights & QA Engineering")
 
 
 @app.route('/eu-accessibility-act-compliance')
 def eu_accessibility_act_compliance():
-    return render_template('blog/eu_accessibility_act_compliance.html', page_title="EU Accessibility Rules Are Now in Force — Is Your Business Compliant?")
+    return render_template('blog/eu_accessibility_act_compliance.html', page_title="EU Accessibility Act Compliance: Is Your Business Ready? | Lukode")
 
 
 @app.route('/accessibility-report')
 def accessibility_report():
-    return render_template('blog/accessibility_report.html', page_title="Lukode - Accessibility Report")
+    return render_template('blog/accessibility_report.html', page_title="Common Accessibility Issues & Remediation Guide | Lukode Blog")
 
 
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
-    return render_template('coming_soon.html', page_title="Lukode - Coming Soon")
+    return render_template('coming_soon.html', page_title="Coming Soon | Lukode AI & Software Quality")
+
+
+@app.route('/robots.txt')
+def robots():
+    """Serve robots.txt for search engine crawlers"""
+    return send_from_directory(app.static_folder, 'robots.txt')
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+    """Serve XML sitemap for search engines"""
+    return send_from_directory(app.static_folder, 'sitemap.xml', mimetype='application/xml')
 
 
 @app.route('/contact', methods=['POST'])

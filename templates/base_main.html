@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Lukode{% endblock %}</title>
+    <title>{% block title %}{{ page_title if page_title else "Lukode AI & Software Quality | Independent Testing & Quality Engineering" }}{% endblock %}</title>
     
     <!-- Meta Tags for SEO -->
-    <meta name="description" content="Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software quality engineering, and WCAG accessibility compliance.">
-    <meta name="keywords" content="AI testing, LLM validation, software testing, quality engineering, API testing, test automation, WCAG compliance, accessibility testing, QA engineering, software reliability">
+    <meta name="description" content="{% block meta_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software quality engineering, and WCAG accessibility compliance.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}AI testing, LLM validation, software testing, quality engineering, API testing, test automation, WCAG compliance, accessibility testing, QA engineering, software reliability{% endblock %}">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}https://lukode.net/{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://lukode.net/{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ page_title if page_title else 'Lukode AI & Software Quality | Independent Testing & Quality Engineering' }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software quality engineering, and WCAG accessibility compliance.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}{% endblock %}">
+    <meta property="og:site_name" content="Lukode AI & Software Quality">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}https://lukode.net/{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ page_title if page_title else 'Lukode AI & Software Quality | Independent Testing & Quality Engineering' }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software quality engineering, and WCAG accessibility compliance.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}{% endblock %}">
     
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
@@ -33,7 +51,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode" class="logo-img">
+                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode AI & Software Quality" class="logo-img">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -102,7 +120,7 @@
                 <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
                     <div class="social-links">
                         <a href="{{ url_for('blog') }}" id="blog-link">Blog</a>
-                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope" target="_blank"></i></a>
+                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope"></i></a>
                         <a href="https://www.linkedin.com/company/lukode" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
