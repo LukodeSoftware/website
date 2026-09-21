@@ -66,6 +66,12 @@ def accessibility_report():
     return render_template('blog/accessibility_report.html', page_title="Common Accessibility Issues & Remediation Guide | Lukode Blog")
 
 
+@app.route('/european-accessibility-act-penalties')
+@app.route('/eaa-penalties')
+def eaa_penalties():
+    return render_template('blog/eaa_penalties.html', page_title="European Accessibility Act Penalties: Fines & Legal Risks | Lukode Blog")
+
+
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
