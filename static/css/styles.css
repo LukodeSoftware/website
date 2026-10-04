@@ -1148,3 +1148,92 @@ footer {
     color: var(--highlight-color) !important;
     text-decoration: underline !important;
 }
+
+/* Blog Category Cards & Navigation Styles */
+.category-card {
+    background-color: var(--bg-color);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 1.75rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none !important;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--highlight-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    color: inherit;
+}
+
+.category-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.category-pill:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    border-color: var(--highlight-color);
+    color: #ffffff;
+}
+
+.category-pill.active {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
+.category-pill-count {
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.badge-cat-ai {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.badge-cat-wcag {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge-cat-qa {
+    background-color: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    border: 1px solid rgba(167, 139, 250, 0.3);
+}

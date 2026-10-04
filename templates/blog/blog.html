@@ -6,15 +6,20 @@
     <title>{{ page_title if page_title else "Lukode AI & Software Quality Blog | Insights & QA Engineering" }}</title>
     
     <!-- Meta Tags for SEO -->
+    {% if active_category %}
+    <meta name="description" content="Explore expert articles, guides, and QA insights on {{ active_category.name }} from Lukode AI & Software Quality.">
+    <meta name="keywords" content="{{ active_category.name }}, software testing blog, AI quality assurance, WCAG compliance, QA engineering">
+    <link rel="canonical" href="https://lukode.net/blog/category/{{ active_category.slug }}">
+    <meta property="og:url" content="https://lukode.net/blog/category/{{ active_category.slug }}">
+    {% else %}
     <meta name="description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
     <meta name="keywords" content="AI testing blog, software testing insights, QA engineering articles, WCAG compliance guide, digital accessibility blog">
-    
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://lukode.net/blog">
+    <meta property="og:url" content="https://lukode.net/blog">
+    {% endif %}
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lukode.net/blog">
     <meta property="og:title" content="{{ page_title if page_title else 'Lukode AI & Software Quality Blog | Insights & QA Engineering' }}">
     <meta property="og:description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
     <meta property="og:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
@@ -22,7 +27,11 @@
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
+    {% if active_category %}
+    <meta name="twitter:url" content="https://lukode.net/blog/category/{{ active_category.slug }}">
+    {% else %}
     <meta name="twitter:url" content="https://lukode.net/blog">
+    {% endif %}
     <meta name="twitter:title" content="{{ page_title if page_title else 'Lukode AI & Software Quality Blog | Insights & QA Engineering' }}">
     <meta name="twitter:description" content="Insights, best practices, and expert articles on AI validation, software quality engineering, and WCAG digital accessibility compliance from Lukode.">
     <meta name="twitter:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
@@ -42,6 +51,22 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .category-pill-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 500;
+            text-decoration: none !important;
+            display: inline-block;
+        }
+        .post-card-title a {
+            transition: color 0.2s ease;
+        }
+        .post-card-title a:hover {
+            color: var(--highlight-color) !important;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
     <!-- Navigation -->
@@ -69,61 +94,162 @@
     <!-- Blog Section -->
     <section id="blog" class="py-5 light-bg mt-5 flex-grow-1">
         <div class="container mt-5 mb-5">
-            <h1 class="text-center mb-5">Lukode AI & Software Quality Blog</h1>
 
-            <div class="row g-4">
-                <!-- Blog Post 1 -->
-                <div class="col-md-6">
-                    <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between">
+            {% if active_category %}
+                <!-- Category Specific View Banner -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/" class="text-muted text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('blog') }}" class="text-muted text-decoration-none">Blog</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">{{ active_category.name }}</li>
+                    </ol>
+                </nav>
+
+                <div class="dark-bg p-4 p-md-5 rounded shadow-sm mb-5 border border-secondary border-opacity-25">
+                    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="category-icon-wrapper mb-0" style="background-color: {{ active_category.accent_color }}22; color: {{ active_category.accent_color }};">
+                                <i class="{{ active_category.icon }} fa-lg"></i>
+                            </div>
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <h1 class="h2 text-white mb-0">{{ active_category.name }}</h1>
+                                    <span class="badge bg-secondary">{{ posts|length }} Article{% if posts|length != 1 %}s{% endif %}</span>
+                                </div>
+                                <p class="text-muted mb-0">{{ active_category.description }}</p>
+                            </div>
+                        </div>
                         <div>
-                            <h2 class="mb-3">The EU Accessibility Rules Are Now in Force — Is Your Business Compliant?</h2>
-                            <p>As of June 28, 2025, the European Accessibility Act (EAA) is officially in effect. That means digital accessibility is no longer optional — it’s the law. Find out what it means for your business.</p>
+                            <a href="{{ url_for('blog') }}" class="btn btn-outline-light btn-sm text-nowrap">
+                                <i class="fas fa-arrow-left me-1"></i> View All Categories
+                            </a>
                         </div>
-                        <div class="text-end mt-3">
-                            <a href="{{ url_for('eu_accessibility_act_compliance') }}" class="btn btn-primary btn-sm">Read More</a>
-                        </div>
-                    </article>
+                    </div>
+                </div>
+            {% else %}
+                <!-- Main Blog Header -->
+                <div class="text-center mb-5">
+                    <h1 class="mb-3">Lukode AI & Software Quality Blog</h1>
+                    <p class="section-subtitle mx-auto" style="max-width: 720px;">
+                        Practical engineering insights, compliance frameworks, and QA methodologies for modern AI applications and web platforms.
+                    </p>
                 </div>
 
-                <!-- Blog Post 2 -->
-                <div class="col-md-6">
-                    <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <h2 class="mb-3">The Most Common Accessibility Issues Found on Business Websites (and How to Fix Them)</h2>
-                            <p>From missing alt text to low contrast and keyboard navigation problems — discover the top accessibility mistakes companies make and how to fix them before they cause compliance issues.</p>
-                        </div>
-                        <div class="text-end mt-3">
-                            <a href="{{ url_for('accessibility_report') }}" class="btn btn-primary btn-sm">Read More</a>
-                        </div>
-                    </article>
+                <!-- Category Cards Section -->
+                <div class="mb-5">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h2 class="h4 mb-0 text-white"><i class="fas fa-th-large text-primary me-2"></i>Explore by Category</h2>
+                    </div>
+
+                    <div class="row g-4">
+                        {% for cat in categories %}
+                            <div class="col-lg-4 col-md-6">
+                                <a href="{{ url_for('blog_category', category_slug=cat.slug) }}" class="category-card">
+                                    <div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="category-icon-wrapper" style="background-color: {{ cat.accent_color }}22; color: {{ cat.accent_color }};">
+                                                <i class="{{ cat.icon }}"></i>
+                                            </div>
+                                            {% if cat.count > 0 %}
+                                                <span class="badge bg-secondary">{{ cat.count }} Article{% if cat.count != 1 %}s{% endif %}</span>
+                                            {% else %}
+                                                <span class="badge bg-dark border border-secondary text-muted">Coming Soon</span>
+                                            {% endif %}
+                                        </div>
+                                        <h3 class="h5 text-white mb-2">{{ cat.name }}</h3>
+                                        <p class="text-muted small mb-3">{{ cat.description }}</p>
+                                    </div>
+                                    <div class="pt-3 border-top border-secondary border-opacity-25 d-flex align-items-center justify-content-between">
+                                        <span class="text-primary small fw-semibold">
+                                            {% if cat.count > 0 %}Explore Category &rarr;{% else %}View Topics &rarr;{% endif %}
+                                        </span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
 
-                <!-- Blog Post 3 -->
-                <div class="col-md-6">
-                    <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <h2 class="mb-3">European Accessibility Act Penalties: What Non-Compliance Costs Businesses</h2>
-                            <p>From €100k+ fines to court injunctions and market withdrawal — explore the real-world financial, legal, and operational consequences of EAA non-compliance across EU member states.</p>
-                        </div>
-                        <div class="text-end mt-3">
-                            <a href="{{ url_for('eaa_penalties') }}" class="btn btn-primary btn-sm">Read More</a>
-                        </div>
-                    </article>
-                </div>
+                <hr class="my-5 border-secondary border-opacity-50">
+            {% endif %}
 
-                <!-- Blog Post 4 -->
-                <div class="col-md-6">
-                    <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <h2 class="mb-3">Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines</h2>
-                            <p>Why traditional unit tests fail for AI, and the evaluation metrics modern engineering teams need to eliminate hallucinations before production.</p>
-                        </div>
-                        <div class="text-end mt-3">
-                            <a href="{{ url_for('testing_llms_rag_evals') }}" class="btn btn-primary btn-sm">Read More</a>
-                        </div>
-                    </article>
-                </div>
+            <!-- Category Filter Pills Bar -->
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+                <span class="text-muted small me-2 d-none d-md-inline"><i class="fas fa-filter me-1"></i>Category:</span>
+                <a href="{{ url_for('blog') }}" class="category-pill {% if not active_category %}active{% endif %}">
+                    <span>All Articles</span>
+                    <span class="category-pill-count">{{ total_posts_count }}</span>
+                </a>
+                {% for cat in categories %}
+                    <a href="{{ url_for('blog_category', category_slug=cat.slug) }}" class="category-pill {% if active_category and active_category.slug == cat.slug %}active{% endif %}">
+                        <i class="{{ cat.icon }}"></i>
+                        <span>{{ cat.short_name }}</span>
+                        <span class="category-pill-count">{{ cat.count }}</span>
+                    </a>
+                {% endfor %}
             </div>
+
+            <!-- Articles Section -->
+            <div class="mb-4">
+                <h2 class="h4 text-white mb-4">
+                    {% if active_category %}
+                        {{ active_category.name }} Articles
+                    {% else %}
+                        Latest Articles
+                    {% endif %}
+                </h2>
+
+                {% if posts %}
+                    <div class="row g-4">
+                        {% for post in posts %}
+                            <div class="col-md-6">
+                                <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between border border-secondary border-opacity-25">
+                                    <div>
+                                        <!-- Post Meta: Category badge & read time -->
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <a href="{{ url_for('blog_category', category_slug=post.category_slug) }}" class="category-pill-badge {% if post.category_slug == 'ai-testing' %}badge-cat-ai{% elif post.category_slug == 'accessibility-compliance' %}badge-cat-wcag{% else %}badge-cat-qa{% endif %}">
+                                                <i class="{{ post.icon }} me-1"></i>{{ post.category_name }}
+                                            </a>
+                                            <span class="text-muted small"><i class="far fa-clock me-1"></i>{{ post.read_time }}</span>
+                                        </div>
+
+                                        <!-- Post Title -->
+                                        <h3 class="h5 mb-3 post-card-title">
+                                            <a href="{{ url_for(post.url_endpoint) }}" class="text-white text-decoration-none">
+                                                {{ post.title }}
+                                            </a>
+                                        </h3>
+
+                                        <!-- Post Summary -->
+                                        <p class="text-muted mb-0">{{ post.summary }}</p>
+                                    </div>
+
+                                    <!-- Read More CTA -->
+                                    <div class="text-end mt-4 pt-3 border-top border-secondary border-opacity-25">
+                                        <a href="{{ url_for(post.url_endpoint) }}" class="btn btn-primary btn-sm">
+                                            Read Article <i class="fas fa-arrow-right ms-1"></i>
+                                        </a>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <!-- Empty State for Categories with upcoming articles -->
+                    <div class="dark-bg p-5 rounded text-center my-4 border border-secondary border-opacity-25">
+                        <i class="fas fa-clock fa-3x text-muted mb-3"></i>
+                        <h3 class="h4 text-white mb-2">Articles in This Category Are Coming Soon</h3>
+                        <p class="text-muted mx-auto mb-4" style="max-width: 600px;">
+                            We are currently authoring new in-depth technical guides for software testing, automated QA pipelines, and regression suites.
+                        </p>
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <a href="{{ url_for('software_testing') }}" class="btn btn-primary btn-sm">Explore Software Testing Services</a>
+                            <a href="{{ url_for('blog') }}" class="btn btn-outline-light btn-sm">Browse All Articles</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
         </div>
     </section>
 

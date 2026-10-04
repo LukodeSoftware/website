@@ -1,6 +1,7 @@
 import os
 import logging
-from flask import Flask, render_template, request, jsonify, flash, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for, send_from_directory, abort
+from blog_data import get_categories_with_counts, get_category_by_slug, get_posts_by_category
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -53,7 +54,37 @@ def privacypolicy():
 @app.route('/blog')
 @app.route('/insights')
 def blog():
-    return render_template('blog/blog.html', page_title="Lukode AI & Software Quality Blog | Insights & QA Engineering")
+    category_slug = request.args.get('category')
+    if category_slug:
+        return redirect(url_for('blog_category', category_slug=category_slug))
+    categories = get_categories_with_counts()
+    posts = get_posts_by_category()
+    return render_template(
+        'blog/blog.html',
+        page_title="Lukode AI & Software Quality Blog | Insights & QA Engineering",
+        categories=categories,
+        posts=posts,
+        active_category=None,
+        total_posts_count=len(posts)
+    )
+
+
+@app.route('/blog/category/<category_slug>')
+def blog_category(category_slug):
+    category = get_category_by_slug(category_slug)
+    if not category:
+        abort(404)
+    categories = get_categories_with_counts()
+    posts = get_posts_by_category(category_slug)
+    page_title = f"{category['name']} Articles | Lukode Blog"
+    return render_template(
+        'blog/blog.html',
+        page_title=page_title,
+        categories=categories,
+        posts=posts,
+        active_category=category,
+        total_posts_count=sum(c['count'] for c in categories)
+    )
 
 
 @app.route('/eu-accessibility-act-compliance')
