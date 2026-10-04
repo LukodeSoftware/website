@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title if page_title else "Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines | Lukode Blog" }}</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Learn how to test non-deterministic AI applications. Discover how to evaluate RAG pipelines, catch hallucinations, use LLM-as-a-Judge, and build automated CI/CD eval suites.">
+    <meta name="keywords" content="AI testing, LLM evaluation, RAG testing, hallucination detection, LLM as a judge, automated eval suites, AI quality assurance, testing non-deterministic systems">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lukode.net/testing-llms-rag-automated-eval-suites">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lukode.net/testing-llms-rag-automated-eval-suites">
+    <meta property="og:title" content="{{ page_title if page_title else 'Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines | Lukode Blog' }}">
+    <meta property="og:description" content="Learn how to test non-deterministic AI applications. Discover how to evaluate RAG pipelines, catch hallucinations, use LLM-as-a-Judge, and build automated CI/CD eval suites.">
+    <meta property="og:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
+    <meta property="og:site_name" content="Lukode AI & Software Quality">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://lukode.net/testing-llms-rag-automated-eval-suites">
+    <meta name="twitter:title" content="{{ page_title if page_title else 'Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines | Lukode Blog' }}">
+    <meta property="twitter:description" content="Learn how to test non-deterministic AI applications. Discover how to evaluate RAG pipelines, catch hallucinations, use LLM-as-a-Judge, and build automated CI/CD eval suites.">
+    <meta name="twitter:image" content="https://lukode.net{{ url_for('static', filename='images/hero-diagnostics.jpg') }}">
+    
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .code-snippet {
+            background-color: #1a1a27;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+            font-size: 0.92rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+        }
+        .code-snippet .keyword { color: #f472b6; }
+        .code-snippet .func { color: #60a5fa; }
+        .code-snippet .comment { color: #94a3b8; font-style: italic; }
+        .code-snippet .number { color: #34d399; }
+        
+        .eval-card {
+            background-color: #2e2e42;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .eval-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--highlight-color);
+        }
+        .callout-pro-tip {
+            background: rgba(59, 130, 246, 0.08);
+            border-left: 4px solid var(--highlight-color);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem 1.5rem;
+        }
+        .badge-category {
+            background: rgba(59, 130, 246, 0.18);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            font-weight: 500;
+            padding: 0.4rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/Logo_dark_no_bg_cropped.png') }}" alt="Lukode AI & Software Quality" class="logo-img">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" aria-label="Back to homepage">Main Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('blog') }}" style="color: #3B82F6;">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Content Section -->
+    <section id="blog" class="py-5 light-bg flex-grow-1">
+        <div class="container">
+            <article class="dark-bg p-4 p-md-5 rounded shadow-sm mt-5">
+                <!-- Category and Reading Time -->
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                    <span class="badge-category"><i class="fas fa-brain me-1"></i> AI Quality Engineering & Evaluation</span>
+                    <span class="text-muted small"><i class="far fa-clock me-1"></i> 7 min read</span>
+                </div>
+
+                <h1 class="mb-3">Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines</h1>
+                <p class="lead text-muted mb-4">Why traditional unit tests fail for AI, and the evaluation metrics modern engineering teams need to eliminate hallucinations before production.</p>
+
+                <hr class="my-4 border-secondary">
+
+                <!-- Introduction -->
+                <p>In traditional software engineering, quality assurance relies on determinism: given input <code>A</code>, the function must always return output <code>B</code>. A unit test is strictly binary—it either passes or it fails:</p>
+
+                <div class="code-snippet my-3">
+                    <span class="keyword">assert</span> <span class="func">calculate_total</span>(cart) == <span class="number">129.50</span>  <span class="comment"># True or False</span>
+                </div>
+
+                <p>When building applications powered by Large Language Models (LLMs) or Retrieval-Augmented Generation (RAG), this fundamental assumption disappears. You can submit the exact same prompt three times at temperature <code>0.2</code> and receive three subtly different phrasings. More dangerously, you might receive a confidently stated fact that does not exist anywhere in your source documents—a <strong>hallucination</strong>.</p>
+
+                <p>Because AI outputs are probabilistic and non-deterministic, many teams fall into the trap of <strong>"vibe checking"</strong>: a developer tweaks a prompt, runs 4–5 sample queries in a playground or chat UI, says <em>"looks good to me,"</em> and ships to production.</p>
+
+                <p>Two weeks later, customer support is flooded with tickets because a subtle prompt tweak broke responses for 15% of your user base.</p>
+
+                <p class="fw-semibold text-white">If you are treating AI as core product infrastructure, vibe checks are not QA. You need systematic, automated evaluation suites (Evals). Here is how we design, benchmark, and automate testing for LLM and RAG systems at Lukode.</p>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- Section 1 -->
+                <h2 class="mb-3">1. The Core Challenge: Why AI Testing is Different</h2>
+                <p>Testing generative AI requires shifting mental models from <strong>binary unit testing</strong> to <strong>probabilistic benchmarking</strong>.</p>
+
+                <p>When evaluating an LLM or RAG pipeline, you are testing three distinct layers of potential failure:</p>
+
+                <div class="row g-3 my-3">
+                    <div class="col-md-4">
+                        <div class="eval-card">
+                            <h5 class="text-white mb-2"><i class="fas fa-database text-primary me-2"></i>1. The Retrieval Layer</h5>
+                            <p class="text-muted small mb-0">Did the vector database search and chunking return relevant, accurate source context without token noise?</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="eval-card">
+                            <h5 class="text-white mb-2"><i class="fas fa-microchip text-primary me-2"></i>2. The Generation Layer</h5>
+                            <p class="text-muted small mb-0">Did the model adhere strictly to the retrieved context, or did it hallucinate external or contradictory claims?</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="eval-card">
+                            <h5 class="text-white mb-2"><i class="fas fa-shield-alt text-primary me-2"></i>3. The Interface Layer</h5>
+                            <p class="text-muted small mb-0">Did the output adhere to required JSON schemas, tone parameters, brand guidelines, and safety boundaries?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p>A bug can occur in any of these layers. If your retrieval step returns irrelevant documents, the model will hallucinate regardless of how refined your system prompt is. Conversely, perfect retrieval can still yield a broken response if the model ignores the provided context.</p>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- Section 2 -->
+                <h2 class="mb-3">2. The RAG Quality Triad: What You Must Actually Measure</h2>
+                <p>To evaluate a RAG pipeline quantitatively, industry best practice focuses on the <strong>RAG Triad</strong>—three foundational metrics that pinpoint exactly where a failure occurred:</p>
+
+                <div class="table-responsive my-4">
+                    <table class="table table-dark table-striped table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 25%;">Metric</th>
+                                <th scope="col" style="width: 25%;">The Core Question</th>
+                                <th scope="col" style="width: 25%;">What It Catches</th>
+                                <th scope="col" style="width: 25%;">Real-World Failure Mode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Context Relevance</strong><br><small class="text-muted">Retrieval Quality</small></td>
+                                <td>Are the retrieved context snippets relevant to the user's specific query?</td>
+                                <td>Vector search noise, poor chunking strategies, irrelevant embeddings, token bloat.</td>
+                                <td>Feeding 10,000 irrelevant tokens into the prompt, driving up latency and drowning out the real answer.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Groundedness / Faithfulness</strong><br><small class="text-muted">Generation Integrity</small></td>
+                                <td>Can every factual claim in the generated answer be directly inferred from the retrieved context?</td>
+                                <td>Hallucinations, confabulations, unverified assumptions, and conflicting statements.</td>
+                                <td>User asks about return policy, and the model invents a "30-day money-back guarantee" that doesn't exist.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Answer Relevance</strong><br><small class="text-muted">User Intent Satisfaction</small></td>
+                                <td>Does the response directly and completely answer what the user asked?</td>
+                                <td>Evasive answers, repetitive looping, tone drift, or unhelpful boilerplate.</td>
+                                <td>Model delivers a factual 400-word essay about billing architecture without answering "Where do I update my card?"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- Section 3 -->
+                <h2 class="mb-3">3. Designing a "Golden Benchmark Dataset"</h2>
+                <p>You cannot evaluate without a ground truth. The cornerstone of an automated eval suite is a <strong>Golden Dataset</strong>—a curated collection of test cases that reflect realistic production distribution.</p>
+
+                <p>A production-grade benchmark dataset should contain at least 50 to 200 diverse test records consisting of:</p>
+                <ul>
+                    <li><strong>User Input:</strong> Realistic queries, including typos, ambiguous questions, and complex multi-part requests.</li>
+                    <li><strong>Reference Context (Ground Truth Context):</strong> The exact source documents, knowledge base articles, or paragraphs required to answer the question.</li>
+                    <li><strong>Expected Ground Truth Output:</strong> An ideal answer reviewed, validated, and verified by a human domain expert.</li>
+                    <li><strong>Adversarial & Edge-Case Inputs:</strong> Queries designed to trigger failure—such as out-of-domain questions, jailbreak attempts, empty queries, or requests for data the system does not have permission to access.</li>
+                </ul>
+
+                <div class="callout-pro-tip my-4">
+                    <h6 class="text-white mb-1"><i class="fas fa-lightbulb text-warning me-2"></i>Pro Tip: Test the Refusal Boundary</h6>
+                    <p class="mb-0 text-muted small">Don't just test what the model <em>should</em> answer. Test how gracefully it says <em>"I don't have enough information in the provided documents to answer that question."</em> The inability to decline answering is the #1 cause of customer-facing hallucinations.</p>
+                </div>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- Section 4 -->
+                <h2 class="mb-3">4. Evaluation Scoring: Deterministic vs. LLM-as-a-Judge</h2>
+                <p>How do you score an open-ended natural language response against your golden dataset? Modern AI testing combines two complementary approaches:</p>
+
+                <div class="row g-4 my-3">
+                    <div class="col-md-6">
+                        <div class="eval-card">
+                            <h4 class="h5 text-white mb-3"><i class="fas fa-bolt text-warning me-2"></i>Method A: Deterministic & Heuristic Checks</h4>
+                            <p class="small text-muted">Fast, cheap, and run locally before calling any external model:</p>
+                            <ul class="small ps-3 text-muted">
+                                <li><strong class="text-white">Schema Validation:</strong> Enforce strict JSON or Pydantic schemas (validating keys, types, ranges, non-null values).</li>
+                                <li><strong class="text-white">Regex & Pattern Checks:</strong> Verify presence/absence of prohibited words, competitor mentions, PII (emails, SSNs), or mandatory legal disclaimers.</li>
+                                <li><strong class="text-white">Token Length & Latency:</strong> Ensure output token count and response latency (p50, p95, p99) stay within operational budgets.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="eval-card">
+                            <h4 class="h5 text-white mb-3"><i class="fas fa-balance-scale text-primary me-2"></i>Method B: Model-Graded Evaluation (LLM-as-a-Judge)</h4>
+                            <p class="small text-muted">For semantic quality, fluency, and faithfulness, employ a calibrated judge model:</p>
+                            <ul class="small ps-3 text-muted">
+                                <li><strong class="text-white">Binary Judgments:</strong> Instead of asking for a subjective 1–10 rating, ask for binary boolean assessments: <em>"Does Claim X contradict Context Y? [Yes/No]"</em></li>
+                                <li><strong class="text-white">Chain-of-Thought Rubrics:</strong> Require the evaluator model to generate step-by-step reasoning <em>before</em> outputting its final score.</li>
+                                <li><strong class="text-white">Few-Shot Examples:</strong> Feed the evaluator model 2–3 examples of "failing" and "passing" scores to calibrate its strictness.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- Section 5 -->
+                <h2 class="mb-3">5. Integrating Evals into Your CI/CD Pipeline</h2>
+                <p>The ultimate goal of AI testing is automated regression prevention. Every time an engineering team:</p>
+                <ul>
+                    <li>Modifies a system prompt,</li>
+                    <li>Changes the vector database chunk size or embedding model,</li>
+                    <li>Updates temperature or top-p sampling parameters,</li>
+                    <li>Migrates to a newer foundation model version (e.g. from one model release to the next),</li>
+                </ul>
+                <p>...an automated eval suite should execute in CI (GitHub Actions, GitLab CI, or specialized evaluation runners).</p>
+
+                <div class="p-4 rounded border border-secondary bg-dark my-4">
+                    <h5 class="text-white mb-3"><i class="fas fa-code-branch text-info me-2"></i>Recommended Release Gates</h5>
+                    <ul class="mb-0 text-muted">
+                        <li class="mb-2"><strong class="text-white">Zero Schema Failures:</strong> 100% adherence to required output structures and types.</li>
+                        <li class="mb-2"><strong class="text-white">Faithfulness / Groundedness &gt; 95%:</strong> No regression in factual consistency across the golden dataset.</li>
+                        <li><strong class="text-white">Cost & Latency Thresholds:</strong> Average latency must remain under target SLA (e.g., &lt; 2.0s), and token usage must not exceed budget limits.</li>
+                    </ul>
+                </div>
+
+                <p>If an updated prompt drops groundedness from 96% to 89%, <strong>the build fails</strong>, and the code never reaches production.</p>
+
+                <hr class="my-5 border-secondary">
+
+                <!-- The Bottom Line & CTA -->
+                <h2 class="mb-3">The Bottom Line</h2>
+                <p>Shipping AI features without an evaluation framework is like deploying critical backend infrastructure without unit tests.</p>
+                <p>Moving beyond "vibe checks" to automated, metric-driven evaluation is what separates experimental prototypes from reliable, enterprise-grade AI products that customers and stakeholders trust.</p>
+
+                <div class="card bg-dark border-primary mt-5 p-4 text-center">
+                    <h3 class="h4 text-white mb-2">Need Independent AI Validation for Your Application?</h3>
+                    <p class="text-muted mx-auto" style="max-width: 700px;">
+                        At <strong>Lukode</strong>, we specialize in end-to-end quality engineering for AI applications, LLMs, and agentic workflows. We help product teams construct golden benchmark datasets, eliminate hallucinations, and implement automated CI/CD release guardrails.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
+                        <a href="{{ url_for('ai_testing') }}" class="btn btn-primary">Explore Our AI Testing Services</a>
+                        <a href="/#contact" class="btn btn-outline-light">Book an AI Quality Audit</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2026 Lukode Łukasz Jaroszewski. All rights reserved. | <a href="{{ url_for('privacypolicy') }}" id="privacy-policy-link">Privacy Policy</a></p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <div class="social-links">
+                        <a href="{{ url_for('blog') }}" id="blog-link">Blog</a>
+                        <a href="mailto:contact@lukode.net" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/company/lukode" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

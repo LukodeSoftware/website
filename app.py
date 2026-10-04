@@ -72,6 +72,13 @@ def eaa_penalties():
     return render_template('blog/eaa_penalties.html', page_title="European Accessibility Act Penalties: Fines & Legal Risks | Lukode Blog")
 
 
+@app.route('/testing-llms-rag-automated-eval-suites')
+@app.route('/blog/testing-llms-rag-automated-eval-suites')
+@app.route('/ai-eval-suites')
+def testing_llms_rag_evals():
+    return render_template('blog/testing_llms_rag_evals.html', page_title="Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines | Lukode Blog")
+
+
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""
