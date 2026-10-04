@@ -1149,10 +1149,15 @@ footer {
     text-decoration: underline !important;
 }
 
+/* Global text-muted override to ensure WCAG compliant contrast on dark backgrounds */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
 /* Blog Category Cards & Navigation Styles */
 .category-card {
-    background-color: var(--bg-color);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
     padding: 1.75rem;
     height: 100%;
@@ -1169,8 +1174,60 @@ footer {
 .category-card:hover {
     transform: translateY(-4px);
     border-color: var(--highlight-color);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
     color: inherit;
+}
+
+.category-card p,
+.category-card .category-card-desc {
+    color: #cbd5e1 !important;
+    font-size: 0.93rem;
+    line-height: 1.6;
+}
+
+.category-card-action {
+    color: #60a5fa !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.2s ease;
+}
+
+.category-card:hover .category-card-action {
+    color: #93c5fd !important;
+    transform: translateX(4px);
+}
+
+.category-badge-count {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(147, 197, 253, 0.4);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    display: inline-block;
+}
+
+.category-badge-upcoming {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    display: inline-block;
+}
+
+.post-card-summary {
+    color: #cbd5e1 !important;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .category-icon-wrapper {
@@ -1237,3 +1294,4 @@ footer {
     color: #a78bfa;
     border: 1px solid rgba(167, 139, 250, 0.3);
 }
+

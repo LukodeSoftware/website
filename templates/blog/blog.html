@@ -114,9 +114,9 @@
                             <div>
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <h1 class="h2 text-white mb-0">{{ active_category.name }}</h1>
-                                    <span class="badge bg-secondary">{{ posts|length }} Article{% if posts|length != 1 %}s{% endif %}</span>
+                                    <span class="category-badge-count">{{ posts|length }} Article{% if posts|length != 1 %}s{% endif %}</span>
                                 </div>
-                                <p class="text-muted mb-0">{{ active_category.description }}</p>
+                                <p class="category-card-desc mb-0">{{ active_category.description }}</p>
                             </div>
                         </div>
                         <div>
@@ -146,21 +146,21 @@
                             <div class="col-lg-4 col-md-6">
                                 <a href="{{ url_for('blog_category', category_slug=cat.slug) }}" class="category-card">
                                     <div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <div class="category-icon-wrapper" style="background-color: {{ cat.accent_color }}22; color: {{ cat.accent_color }};">
+                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                            <div class="category-icon-wrapper mb-0" style="background-color: {{ cat.accent_color }}25; color: {{ cat.accent_color }};">
                                                 <i class="{{ cat.icon }}"></i>
                                             </div>
                                             {% if cat.count > 0 %}
-                                                <span class="badge bg-secondary">{{ cat.count }} Article{% if cat.count != 1 %}s{% endif %}</span>
+                                                <span class="category-badge-count">{{ cat.count }} Article{% if cat.count != 1 %}s{% endif %}</span>
                                             {% else %}
-                                                <span class="badge bg-dark border border-secondary text-muted">Coming Soon</span>
+                                                <span class="category-badge-upcoming"><i class="far fa-clock me-1"></i>Coming Soon</span>
                                             {% endif %}
                                         </div>
                                         <h3 class="h5 text-white mb-2">{{ cat.name }}</h3>
-                                        <p class="text-muted small mb-3">{{ cat.description }}</p>
+                                        <p class="category-card-desc mb-3">{{ cat.description }}</p>
                                     </div>
                                     <div class="pt-3 border-top border-secondary border-opacity-25 d-flex align-items-center justify-content-between">
-                                        <span class="text-primary small fw-semibold">
+                                        <span class="category-card-action">
                                             {% if cat.count > 0 %}Explore Category &rarr;{% else %}View Topics &rarr;{% endif %}
                                         </span>
                                     </div>
@@ -221,7 +221,7 @@
                                         </h3>
 
                                         <!-- Post Summary -->
-                                        <p class="text-muted mb-0">{{ post.summary }}</p>
+                                        <p class="post-card-summary mb-0">{{ post.summary }}</p>
                                     </div>
 
                                     <!-- Read More CTA -->
