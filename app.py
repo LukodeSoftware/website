@@ -110,6 +110,13 @@ def testing_llms_rag_evals():
     return render_template('blog/testing_llms_rag_evals.html', page_title="Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines | Lukode Blog")
 
 
+@app.route('/how-to-test-rag-systems')
+@app.route('/blog/how-to-test-rag-systems')
+@app.route('/rag-testing-guide')
+def testing_rag_systems():
+    return render_template('blog/how_to_test_rag_systems.html', page_title="How to Test a RAG-Based System: The Complete QA Guide | Lukode Blog")
+
+
 @app.route('/coming-soon')
 def coming_soon():
     """Coming soon page for services under development"""

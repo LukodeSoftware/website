@@ -34,6 +34,17 @@ BLOG_CATEGORIES = {
 
 BLOG_POSTS = [
     {
+        "id": "how-to-test-rag-systems",
+        "title": "How to Test a RAG-Based System: Architecture, Failure Modes, and the Complete QA Guide",
+        "summary": "A deep-dive engineering guide on testing Retrieval-Augmented Generation (RAG) pipelines. Learn how to isolate ingestion, benchmark retrieval metrics (Recall@K, MRR), evaluate generation faithfulness, and catch hallucinations before production.",
+        "url_endpoint": "testing_rag_systems",
+        "category_slug": "ai-testing",
+        "category_name": "AI Testing & Validation",
+        "read_time": "9 min read",
+        "date": "Oct 2026",
+        "icon": "fas fa-layer-group",
+    },
+    {
         "id": "testing-llms-rag-evals",
         "title": "Testing the Unpredictable: How to Build Automated Eval Suites for LLMs and RAG Pipelines",
         "summary": "Why traditional unit tests fail for AI, and the evaluation metrics modern engineering teams need to eliminate hallucinations before production.",
