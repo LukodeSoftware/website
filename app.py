@@ -151,7 +151,11 @@ def contact():
         logging.info(
             f"Server-side contact form submission: {name} ({email}): {subject} - {message}")
 
-        # Flash a success message
+        # If AJAX / Fetch request (such as wizard or async forms), return JSON response without polluting session flash
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.is_json:
+            return jsonify({'status': 'success', 'message': 'Thank you for your message! We will get back to you soon.'})
+
+        # Flash a success message only for standard browser form posts
         flash('Thank you for your message! We will get back to you soon.', 'success')
 
         # Determine which page the form was submitted from to redirect back properly
@@ -167,6 +171,9 @@ def contact():
             return redirect(url_for('home', _anchor='contact'))
     except Exception as e:
         logging.error(f"Error processing contact form: {str(e)}")
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest' or request.is_json:
+            return jsonify({'status': 'error', 'message': 'There was an error processing your request.'}), 500
+
         flash('There was an error processing your request. Please try again.', 'error')
 
         # Determine which page the form was submitted from to redirect back properly

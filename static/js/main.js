@@ -165,7 +165,15 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', checkReveal);
     
     // EmailJS initialization
-    emailjs.init("jkLAd8X0aWHM4emed");
+    if (typeof emailjs !== 'undefined') {
+        try {
+            emailjs.init({
+                publicKey: "jkLAd8X0aWHM4emed"
+            });
+        } catch (e) {
+            emailjs.init("jkLAd8X0aWHM4emed");
+        }
+    }
 
     
     // Contact form submission with EmailJS
@@ -249,27 +257,32 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.disabled = true;
             
             // Send email using EmailJS
-            emailjs.send('service_8etewic', 'template_4aychwg', templateParams)
-                .then(function(response) {
-                    console.log('Email sent successfully:', response);
-                    
-                    // Show success message
-                    showEmailStatus('success', 'Thank you for your message! We will get back to you soon.');
-                    
-                    // Reset form
-                    contactForm.reset();
-                })
-                .catch(function(error) {
-                    console.error('Email failed to send:', error);
-                    
-                    // Show error message
-                    showEmailStatus('error', 'There was a problem sending your message. Please try again later.');
-                })
-                .finally(function() {
-                    // Reset button state
-                    submitButton.innerHTML = 'Send Message';
-                    submitButton.disabled = false;
-                });
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send('service_8etewic', 'template_4aychwg', templateParams)
+                    .then(function(response) {
+                        console.log('Email sent successfully:', response);
+                        
+                        // Show success message
+                        showEmailStatus('success', 'Thank you for your message! We will get back to you soon.');
+                        
+                        // Reset form
+                        contactForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.error('Email failed to send:', error);
+                        
+                        // Show error message
+                        showEmailStatus('error', 'There was a problem sending your message. Please try again later.');
+                    })
+                    .finally(function() {
+                        // Reset button state
+                        submitButton.innerHTML = 'Send Message';
+                        submitButton.disabled = false;
+                    });
+            } else {
+                // Fallback to server-side POST
+                contactForm.submit();
+            }
         });
     }
     
@@ -310,4 +323,271 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         }, 5000);
     });
+
+    // ==========================================================================
+    // Multi-Step QA Assessment Wizard Controller
+    // ==========================================================================
+    const wizardCard = document.getElementById('qaWizardCard');
+    const wizardBackBtn = document.getElementById('wizardBackBtn');
+    const wizardStepText = document.getElementById('wizardStepText');
+    const wizardProgressFill = document.getElementById('wizardProgressFill');
+    const wizardPanes = document.querySelectorAll('.wizard-step-pane');
+    const wizardFocusOptions = document.getElementById('wizardFocusOptions');
+    const wizardSummaryPills = document.getElementById('wizardSummaryPills');
+    const wizardRecPackage = document.getElementById('wizardRecPackage');
+    const wizardContactForm = document.getElementById('wizardContactForm');
+    const wizardSuccessState = document.getElementById('wizardSuccessState');
+    const wizardRestartBtn = document.getElementById('wizardRestartBtn');
+
+    if (wizardCard) {
+        const wizardState = {
+            step: 1,
+            product: null,
+            productLabel: '',
+            focus: null,
+            focusLabel: '',
+            timeline: null,
+            timelineLabel: ''
+        };
+
+        const focusCatalog = {
+            ai: [
+                { id: 'hallucination', icon: 'fa-shield-alt', title: 'LLM Hallucinations & Guardrails', desc: 'RAG factuality, prompt injections, safety bounds' },
+                { id: 'wcag', icon: 'fa-universal-access', title: 'WCAG 2.2 Accessibility Compliance', desc: 'Accessible chat UI, screen-reader tree, EAA ready' },
+                { id: 'regression', icon: 'fa-network-wired', title: 'API Latency & Regression QA', desc: 'Streaming tokens, response p99 latency, endpoints' },
+                { id: 'full', icon: 'fa-rocket', title: 'Full QA Audit', desc: 'End-to-end model, security & compliance certification' }
+            ],
+            web: [
+                { id: 'wcag', icon: 'fa-universal-access', title: 'WCAG 2.2 AA Compliance (EAA)', desc: 'Official accessibility audit & legal risk removal' },
+                { id: 'regression', icon: 'fa-check-double', title: 'End-to-End Automated QA', desc: 'Critical user workflows, Cypress/Playwright suites' },
+                { id: 'ai', icon: 'fa-brain', title: 'Embedded AI Feature Testing', desc: 'Copilots, smart search, and predictive features' },
+                { id: 'full', icon: 'fa-rocket', title: 'Full QA Audit', desc: 'Complete functional, UI, accessibility & security pass' }
+            ],
+            api: [
+                { id: 'regression', icon: 'fa-check-double', title: 'Automated Regression Suite', desc: '100% endpoint coverage, schema contracts' },
+                { id: 'load', icon: 'fa-bolt', title: 'Performance & Stress Load', desc: 'Concurrency, rate-limits, p99 latency bench' },
+                { id: 'security', icon: 'fa-shield-alt', title: 'Security & Payload Validation', desc: 'Injection filtering, edge-case data sanitization' },
+                { id: 'full', icon: 'fa-rocket', title: 'Full QA Audit', desc: 'Complete integration, stability & failover tests' }
+            ],
+            mobile: [
+                { id: 'device', icon: 'fa-mobile-alt', title: 'Multi-Device Functional QA', desc: 'Cross-device OS matrix, gestures, network flows' },
+                { id: 'wcag', icon: 'fa-universal-access', title: 'Mobile Accessibility (WCAG 2.2)', desc: 'VoiceOver, TalkBack, touch targets, contrast' },
+                { id: 'api', icon: 'fa-network-wired', title: 'API & Offline Sync Reliability', desc: 'Offline mode, background sync, latency checks' },
+                { id: 'full', icon: 'fa-rocket', title: 'Full QA Audit', desc: 'Submission readiness, crash prevention & quality pass' }
+            ]
+        };
+
+        const packageNames = {
+            'ai-hallucination': 'AI Hallucination & Prompt Guardrail Package',
+            'ai-wcag': 'Accessible AI & Chat UX Compliance Package',
+            'ai-regression': 'AI Engine Integration & Latency QA Package',
+            'ai-full': 'Full QA Audit & AI Certification',
+            'web-wcag': 'European Accessibility Act (EAA) Full Audit',
+            'web-regression': 'End-to-End Automated Regression & API Suite',
+            'web-ai': 'Embedded AI Feature & Data Integrity Audit',
+            'web-full': 'Full QA Audit & Web Platform Certification',
+            'api-regression': 'High-Throughput API Regression & Stability Suite',
+            'api-load': 'High-Concurrency Stress & API Benchmarking Suite',
+            'api-security': 'Model API Grounding & Token Reliability Audit',
+            'api-full': 'Full QA Audit & Backend Reliability Certification',
+            'mobile-device': 'Multi-Device Cross-Platform Functional Suite',
+            'mobile-wcag': 'Mobile Accessibility & Assistive Tech Audit',
+            'mobile-api': 'Mobile Network & Offline Workflows Suite',
+            'mobile-full': 'Full QA Audit & App Store Certification'
+        };
+
+        function getPackageName() {
+            const key = `${wizardState.product}-${wizardState.focus}`;
+            return packageNames[key] || 'Comprehensive Quality Engineering Audit';
+        }
+
+        function setStep(stepNumber) {
+            wizardState.step = stepNumber;
+
+            // Update panes
+            wizardPanes.forEach(pane => {
+                pane.classList.toggle('active', parseInt(pane.getAttribute('data-step')) === stepNumber);
+            });
+
+            // Update header controls
+            const wizardHeaderTag = document.getElementById('wizardHeaderTag');
+            const stepTags = {
+                1: '<i class="fas fa-cube me-1 text-primary"></i> Step 1',
+                2: '<i class="fas fa-bullseye me-1 text-primary"></i> Step 2',
+                3: '<i class="fas fa-clock me-1 text-primary"></i> Step 3',
+                4: '<i class="fas fa-check-circle me-1 text-success"></i> Final Step'
+            };
+            if (wizardHeaderTag && stepTags[stepNumber]) {
+                wizardHeaderTag.innerHTML = stepTags[stepNumber];
+            }
+
+            if (stepNumber === 1) {
+                wizardBackBtn.classList.add('d-none');
+                wizardStepText.textContent = 'Step 1 of 4';
+                wizardProgressFill.style.width = '25%';
+            } else if (stepNumber === 2) {
+                wizardBackBtn.classList.remove('d-none');
+                wizardStepText.textContent = 'Step 2 of 4';
+                wizardProgressFill.style.width = '50%';
+                renderStep2Choices();
+            } else if (stepNumber === 3) {
+                wizardBackBtn.classList.remove('d-none');
+                wizardStepText.textContent = 'Step 3 of 4';
+                wizardProgressFill.style.width = '75%';
+            } else if (stepNumber === 4) {
+                wizardBackBtn.classList.remove('d-none');
+                wizardStepText.textContent = 'Final Step';
+                wizardProgressFill.style.width = '100%';
+                renderStep4Summary();
+            }
+        }
+
+        function renderStep2Choices() {
+            if (!wizardFocusOptions) return;
+            const items = focusCatalog[wizardState.product] || focusCatalog.ai;
+            wizardFocusOptions.innerHTML = '';
+
+            items.forEach(item => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'wizard-choice-btn';
+                btn.setAttribute('data-focus', item.id);
+                btn.innerHTML = `
+                    <div class="choice-icon"><i class="fas ${item.icon}"></i></div>
+                    <div class="choice-content">
+                        <div class="choice-title">${item.title}</div>
+                        <div class="choice-desc">${item.desc}</div>
+                    </div>
+                    <i class="fas fa-chevron-right choice-arrow"></i>
+                `;
+
+                btn.addEventListener('click', function() {
+                    wizardState.focus = item.id;
+                    wizardState.focusLabel = item.title;
+                    setStep(3);
+                });
+
+                wizardFocusOptions.appendChild(btn);
+            });
+        }
+
+        function renderStep4Summary() {
+            if (wizardSummaryPills) {
+                wizardSummaryPills.innerHTML = `
+                    <span class="wizard-pill"><i class="fas fa-check text-success me-1"></i> ${wizardState.productLabel}</span>
+                    <span class="wizard-pill"><i class="fas fa-check text-success me-1"></i> ${wizardState.focusLabel}</span>
+                    <span class="wizard-pill"><i class="fas fa-check text-success me-1"></i> ${wizardState.timelineLabel}</span>
+                `;
+            }
+
+            if (wizardRecPackage) {
+                wizardRecPackage.textContent = getPackageName();
+            }
+        }
+
+        // Attach Step 1 Clicks
+        const step1Buttons = document.querySelectorAll('#wizardStep1 .wizard-choice-btn');
+        step1Buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                wizardState.product = this.getAttribute('data-product');
+                wizardState.productLabel = this.querySelector('.choice-title').textContent.trim();
+                setStep(2);
+            });
+        });
+
+        // Attach Step 3 Clicks
+        const step3Buttons = document.querySelectorAll('#wizardStep3 .wizard-choice-btn');
+        step3Buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                wizardState.timeline = this.getAttribute('data-timeline');
+                wizardState.timelineLabel = this.querySelector('.choice-title').textContent.trim();
+                setStep(4);
+            });
+        });
+
+        // Back button navigation
+        wizardBackBtn.addEventListener('click', function() {
+            if (wizardState.step > 1) {
+                setStep(wizardState.step - 1);
+            }
+        });
+
+        // Restart button
+        if (wizardRestartBtn) {
+            wizardRestartBtn.addEventListener('click', function() {
+                if (wizardContactForm) wizardContactForm.reset();
+                wizardSuccessState.classList.add('d-none');
+                if (wizardContactForm) wizardContactForm.classList.remove('d-none');
+                setStep(1);
+            });
+        }
+
+        // Final Form Submission
+        if (wizardContactForm) {
+            wizardContactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = document.getElementById('wizardSubmitBtn');
+                const name = document.getElementById('wizardName').value.trim();
+                const email = document.getElementById('wizardEmail').value.trim();
+                const note = document.getElementById('wizardNote') ? document.getElementById('wizardNote').value.trim() : '';
+
+                if (!name || !email) return;
+
+                const packageName = getPackageName();
+                const fullMessage = `Audit Inquiry from Hero Wizard:\n` +
+                    `• Product: ${wizardState.productLabel}\n` +
+                    `• Quality Focus: ${wizardState.focusLabel}\n` +
+                    `• Timeline: ${wizardState.timelineLabel}\n` +
+                    `• Recommended Package: ${packageName}\n` +
+                    (note ? `• Client Notes: ${note}` : `• Client Notes: None provided`);
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+
+                // Prepare template parameters for EmailJS
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    prefix: '',
+                    phone: '',
+                    message: fullMessage,
+                    subject: `Audit Request: ${packageName}`
+                };
+
+                // Submit via EmailJS if available
+                const sendEmailPromise = (typeof emailjs !== 'undefined')
+                    ? emailjs.send('service_8etewic', 'template_4aychwg', templateParams)
+                    : Promise.resolve();
+
+                // Also record via fetch to /contact as backup logging
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('subject', `Audit Request: ${packageName}`);
+                formData.append('message', fullMessage);
+
+                const backendPromise = fetch('/contact', {
+                    method: 'POST',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    body: formData
+                }).catch(err => console.warn('Backend log notice:', err));
+
+                Promise.allSettled([sendEmailPromise, backendPromise])
+                    .then(results => {
+                        const emailResult = results[0];
+                        if (emailResult.status === 'rejected') {
+                            console.error('EmailJS error:', emailResult.reason);
+                        } else {
+                            console.log('EmailJS sent successfully for audit request');
+                        }
+                        wizardContactForm.classList.add('d-none');
+                        wizardSuccessState.classList.remove('d-none');
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Send Audit Request</span> <i class="fas fa-paper-plane ms-2"></i>';
+                    });
+            });
+        }
+    }
 });

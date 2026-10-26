@@ -1,94 +1,268 @@
 {% extends 'base_main.html' %}
 
 {% block title %}{{ page_title }}{% endblock %}
-{% block meta_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
-{% block meta_keywords %}AI testing services, software testing services, QA engineering, AI validation, LLM testing, API testing services, WCAG testing, accessibility compliance, software quality engineering{% endblock %}
+{% block meta_description %}Independent testing and quality engineering for AI-powered and modern software products.
+Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
+{% block meta_keywords %}AI testing services, software testing services, QA engineering, AI validation, LLM testing, API
+testing services, WCAG testing, accessibility compliance, software quality engineering{% endblock %}
 {% block canonical_url %}https://lukode.net/{% endblock %}
 {% block og_url %}https://lukode.net/{% endblock %}
 {% block og_title %}{{ page_title }}{% endblock %}
-{% block og_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
+{% block og_description %}Independent testing and quality engineering for AI-powered and modern software products.
+Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
 {% block twitter_title %}{{ page_title }}{% endblock %}
-{% block twitter_description %}Independent testing and quality engineering for AI-powered and modern software products. Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
+{% block twitter_description %}Independent testing and quality engineering for AI-powered and modern software products.
+Specializing in AI testing & validation, software QA engineering, and WCAG accessibility compliance.{% endblock %}
 
 {% block content %}
-    <!-- Hero Section -->
-    <section id="hero" class="d-flex align-items-center">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 text-lg-start text-center mb-5 mb-lg-0">
-                    <h1 class="display-4 fw-bold">AI & Software Quality Engineering</h1>
-                    <h2 class="my-4">Independent testing and quality engineering for AI-powered and modern software products.</h2>
-                    <a href="#contact" class="btn btn-primary home-page-btn btn-lg px-5 py-3 mt-3">Discuss Your Testing Needs</a>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <div class="hero-image-container">
-                        <img src="{{ url_for('static', filename='images/hero-diagnostics.jpg') }}" alt="AI & Software Quality Engineering Diagnostics" class="img-fluid rounded-4 shadow-lg" style="max-height: 460px; width: auto; object-fit: contain;">
+<!-- Hero Section -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-lg-start text-center mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold">AI & Software Quality Engineering</h1>
+                <h2 class="my-4">Independent testing and quality engineering for AI-powered and modern software
+                    products.</h2>
+                <a href="#contact" class="btn btn-primary home-page-btn btn-lg px-5 py-3 mt-3">Discuss Your Testing
+                    Needs</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="qa-wizard-card shadow-lg" id="qaWizardCard">
+                    <!-- Wizard Header Bar -->
+                    <div class="wizard-header">
+                        <div class="wizard-header-nav">
+                            <button type="button" class="wizard-back-btn d-none" id="wizardBackBtn" aria-label="Go to previous step">
+                                <i class="fas fa-arrow-left me-1"></i> Back
+                            </button>
+                            <span class="wizard-tag" id="wizardHeaderTag">
+                                <i class="fas fa-cube me-1 text-primary"></i> Step 1
+                            </span>
+                        </div>
+                        <div class="wizard-step-tracker ms-auto">
+                            <span class="wizard-step-text" id="wizardStepText">Step 1 of 4</span>
+                            <div class="wizard-progress-bar">
+                                <div class="wizard-progress-fill" id="wizardProgressFill" style="width: 25%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wizard Form Container -->
+                    <div class="wizard-body">
+                        <!-- STEP 1: Product Architecture -->
+                        <div class="wizard-step-pane active" id="wizardStep1" data-step="1">
+                            <h3 class="wizard-question">What type of product are you testing or shipping?</h3>
+                            <p class="wizard-hint">Select the category that best matches your product.</p>
+                            
+                            <div class="wizard-choices-grid">
+                                <button type="button" class="wizard-choice-btn" data-product="ai">
+                                    <div class="choice-icon"><i class="fas fa-brain"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">AI & RAG Application</div>
+                                        <div class="choice-desc">LLMs, vector search, AI agents, copilots</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                                <button type="button" class="wizard-choice-btn" data-product="web">
+                                    <div class="choice-icon"><i class="fas fa-laptop-code"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">Web SaaS & Platform</div>
+                                        <div class="choice-desc">Cloud apps, portals, eCommerce, dashboards</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                                <button type="button" class="wizard-choice-btn" data-product="api">
+                                    <div class="choice-icon"><i class="fas fa-network-wired"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">API & Backend Services</div>
+                                        <div class="choice-desc">REST, GraphQL, microservices, databases</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                                <button type="button" class="wizard-choice-btn" data-product="mobile">
+                                    <div class="choice-icon"><i class="fas fa-mobile-alt"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">Mobile Application</div>
+                                        <div class="choice-desc">iOS, Android, cross-platform apps</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: Primary Focus / Concern -->
+                        <div class="wizard-step-pane" id="wizardStep2" data-step="2">
+                            <h3 class="wizard-question">What is your primary quality focus or risk?</h3>
+                            <p class="wizard-hint">We tailor testing suites specifically to your greatest release risk.</p>
+                            
+                            <div class="wizard-choices-grid" id="wizardFocusOptions">
+                                <!-- Populated dynamically based on Step 1 selection -->
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: Timeline & Urgency -->
+                        <div class="wizard-step-pane" id="wizardStep3" data-step="3">
+                            <h3 class="wizard-question">What is your target timeline for this audit?</h3>
+                            <p class="wizard-hint">Helps us allocate immediate engineering bandwidth.</p>
+                            
+                            <div class="wizard-choices-grid">
+                                <button type="button" class="wizard-choice-btn" data-timeline="urgent">
+                                    <div class="choice-icon icon-urgent"><i class="fas fa-bolt"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">Urgent / Launching in &lt; 2 Weeks</div>
+                                        <div class="choice-desc">Immediate pre-release or critical compliance audit</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                                <button type="button" class="wizard-choice-btn" data-timeline="standard">
+                                    <div class="choice-icon icon-standard"><i class="fas fa-calendar-alt"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">Next 1–2 Months</div>
+                                        <div class="choice-desc">Scheduled release cycle or roadmap milestone</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                                <button type="button" class="wizard-choice-btn" data-timeline="ongoing">
+                                    <div class="choice-icon icon-ongoing"><i class="fas fa-shield-alt"></i></div>
+                                    <div class="choice-content">
+                                        <div class="choice-title">Ongoing QA Engineering Partnership</div>
+                                        <div class="choice-desc">Dedicated fractional QA engineer & test automation</div>
+                                    </div>
+                                    <i class="fas fa-chevron-right choice-arrow"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: Summary & Direct Send -->
+                        <div class="wizard-step-pane" id="wizardStep4" data-step="4">
+                            <h3 class="wizard-question">Your Tailored Testing Plan is Ready</h3>
+                            
+                            <!-- Selected Pills Summary -->
+                            <div class="wizard-summary-pills mb-3" id="wizardSummaryPills">
+                                <!-- e.g. [AI & RAG App] [Hallucination Defense] [Within 2 Weeks] -->
+                            </div>
+
+                            <div class="wizard-recommended-box mb-3">
+                                <div class="rec-title-row">
+                                    <span class="rec-label text-primary">Recommended Package:</span>
+                                    <span class="rec-badge"><i class="fas fa-circle-check text-success"></i> Verified Scope</span>
+                                </div>
+                                <div class="rec-package-name" id="wizardRecPackage">AI Hallucination & Prompt Guardrail Package</div>
+                            </div>
+
+                            <!-- Direct Inquiry Form -->
+                            <form id="wizardContactForm" class="wizard-form">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control wizard-input" id="wizardName" placeholder="Your Name" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="email" class="form-control wizard-input" id="wizardEmail" placeholder="Work Email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control wizard-input" id="wizardNote" placeholder="Any specific requirements or URLs? (optional)">
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2.5 wizard-submit-btn" id="wizardSubmitBtn">
+                                    <span>Send Audit Request</span>
+                                    <i class="fas fa-paper-plane ms-2"></i>
+                                </button>
+                            </form>
+
+                            <!-- Success State (Hidden until sent) -->
+                            <div class="wizard-success-state d-none text-center py-4" id="wizardSuccessState">
+                                <div class="success-icon-wrap mb-3">
+                                    <i class="fas fa-check-circle text-success"></i>
+                                </div>
+                                <h4 class="text-white mb-2">Audit Request Received!</h4>
+                                <p class="text-muted mb-4">We've received your product specifications. Our team will review your scope and get back to you within 24 hours.</p>
+                                <button type="button" class="btn btn-outline-primary btn-sm px-4" id="wizardRestartBtn">
+                                    <i class="fas fa-redo-alt me-1"></i> Configure Another Product
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <h2 class="section-title">Our Services</h2>
-                    <p class="section-subtitle mb-5">Independent testing and quality engineering for modern software</p>
+<!-- Services Section -->
+<section id="services" class="py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle mb-5">Independent testing and quality engineering for modern software</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>AI Testing & Validation</h4>
+                    <p>Testing AI-powered features, LLMs, APIs, and AI agents for reliability, consistency, and
+                        functional correctness. We evaluate prompt robustness, identify model hallucinations, and
+                        validate edge cases.</p>
+                    <a href="{{ url_for('ai_testing') }}" class="btn btn-outline-primary mt-3">Explore AI Testing</a>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-4 mb-4">
-                    <div class="service-card">
-                        <div class="icon-container">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h4>AI Testing & Validation</h4>
-                        <p>Testing AI-powered features, LLMs, APIs, and AI agents for reliability, consistency, and functional correctness. We evaluate prompt robustness, identify model hallucinations, and validate edge cases.</p>
-                        <a href="{{ url_for('ai_testing') }}" class="btn btn-outline-primary mt-3">Explore AI Testing</a>
+            <div class="col-md-4 mb-4">
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-check-double"></i>
                     </div>
+                    <h4>Software Testing & Quality Engineering</h4>
+                    <p>Manual, API, functional, exploratory, regression, and integration testing for modern software
+                        products. We verify complex workflows, test system stability under load, and build automated
+                        regression suites.</p>
+                    <a href="{{ url_for('software_testing') }}" class="btn btn-outline-primary mt-3">Explore Software
+                        QA</a>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="service-card">
-                        <div class="icon-container">
-                            <i class="fas fa-check-double"></i>
-                        </div>
-                        <h4>Software Testing & Quality Engineering</h4>
-                        <p>Manual, API, functional, exploratory, regression, and integration testing for modern software products. We verify complex workflows, test system stability under load, and build automated regression suites.</p>
-                        <a href="{{ url_for('software_testing') }}" class="btn btn-outline-primary mt-3">Explore Software QA</a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card">
+                    <div class="icon-container">
+                        <i class="fas fa-universal-access"></i>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="service-card">
-                        <div class="icon-container">
-                            <i class="fas fa-universal-access"></i>
-                        </div>
-                        <h4>Accessibility & WCAG Testing</h4>
-                        <p>Identifying accessibility barriers and providing clear, actionable remediation guidance based on WCAG. We help ensure your digital products are inclusive, usable by everyone, and legally compliant.</p>
-                        <a href="{{ url_for('compliance_audits') }}" class="btn btn-outline-primary mt-3">Explore WCAG Testing</a>
-                    </div>
+                    <h4>Accessibility & WCAG Testing</h4>
+                    <p>Identifying accessibility barriers and providing clear, actionable remediation guidance based on
+                        WCAG. We help ensure your digital products are inclusive, usable by everyone, and legally
+                        compliant.</p>
+                    <a href="{{ url_for('compliance_audits') }}" class="btn btn-outline-primary mt-3">Explore WCAG
+                        Testing</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="py-5 light-bg">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 order-lg-2 mb-5 mb-lg-0 text-center">
-                    <div class="about-image-container" style="height: 520px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                        <img src="{{ url_for('static', filename='images/founder.webp') }}" alt="Łukasz Jaroszewski - Founder & AI/ML QA Engineer" class="w-100 h-100" style="object-fit: cover; object-position: center 15%;">
-                    </div>
+<!-- About Section -->
+<section id="about" class="py-5 light-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-lg-2 mb-5 mb-lg-0 text-center">
+                <div class="about-image-container"
+                    style="height: 520px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    <img src="{{ url_for('static', filename='images/founder.webp') }}"
+                        alt="Łukasz Jaroszewski - Founder & AI/ML QA Engineer" class="w-100 h-100"
+                        style="object-fit: cover; object-position: center 15%;">
                 </div>
-                <div class="col-lg-6 order-lg-1">
-                    <h2 class="section-title text-start">About Us</h2>
-                    <div class="section-title-underline mb-4"></div>
-                    <p class="about-text">Lukode is an independent, expert-led software quality engineering company specializing in testing modern applications, complex APIs, and AI-powered systems.</p>
-                    <p class="about-text">The owner is an experienced AI/ML QA Engineer working on Google's projects, bringing specialized expertise in testing AI/ML features, large language models, API workflows, and digital accessibility.</p>
-                    <p class="about-text">We partner with product teams and engineering leaders to provide unbiased, end-to-end quality engineering across the release lifecycle—helping teams catch critical failure modes, eliminate model hallucinations, and deploy stable, compliant software.</p>
-                    <!-- <div class="about-stats mt-5">
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <h2 class="section-title text-start">About Us</h2>
+                <div class="section-title-underline mb-4"></div>
+                <p class="about-text">Lukode is an independent, expert-led software quality engineering company
+                    specializing in testing modern applications, complex APIs, and AI-powered systems.</p>
+                <p class="about-text">The owner is an experienced AI/ML QA Engineer working on Google's projects,
+                    bringing specialized expertise in testing AI/ML features, large language models, API workflows, and
+                    digital accessibility.</p>
+                <p class="about-text">We partner with product teams and engineering leaders to provide unbiased,
+                    end-to-end quality engineering across the release lifecycle—helping teams catch critical failure
+                    modes, eliminate model hallucinations, and deploy stable, compliant software.</p>
+                <!-- <div class="about-stats mt-5">
                         <div class="row">
                             <div class="col-4 text-center">
                                 <div class="stat-number">150+</div>
@@ -104,37 +278,41 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Our Why Section -->
-    <section id="our-why" class="py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h2 class="section-title text-start">Our Why</h2>
-                    <div class="section-title-underline mb-4"></div>
-                    <p class="about-text">Software quality cannot be an afterthought, especially when integrating probabilistic AI components or mission-critical workflows. Flaws in model reasoning, untested edge cases, and accessibility gaps directly affect user trust and operational stability.</p>
-                    <p class="about-text">We believe in systematic, independent verification. By combining disciplined testing methodologies with automated evaluation suites, we help teams ship dependable software that functions as intended under real-world conditions.</p>
-                </div>
-                <div class="col-lg-6">
-                    <h5 class="about-h5 mt-4">Our quality principles:</h5>
-                    <ul class="about-text">
-                        <li>Validate AI systems for consistency, safety, and factual accuracy.</li>
-                        <li>Identify functional, regression, and integration defects prior to release.</li>
-                        <li>Ensure digital accessibility across platforms following WCAG standards.</li>
-                        <li>Provide transparent, reproducible test documentation and defect analysis.</li>
-                        <li>Help product teams maintain high release velocity without compromising reliability.</li>
-                    </ul>
-                </div>
+<!-- Our Why Section -->
+<section id="our-why" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="section-title text-start">Our Why</h2>
+                <div class="section-title-underline mb-4"></div>
+                <p class="about-text">Software quality cannot be an afterthought, especially when integrating
+                    probabilistic AI components or mission-critical workflows. Flaws in model reasoning, untested edge
+                    cases, and accessibility gaps directly affect user trust and operational stability.</p>
+                <p class="about-text">We believe in systematic, independent verification. By combining disciplined
+                    testing methodologies with automated evaluation suites, we help teams ship dependable software that
+                    functions as intended under real-world conditions.</p>
+            </div>
+            <div class="col-lg-6">
+                <h5 class="about-h5 mt-4">Our quality principles:</h5>
+                <ul class="about-text">
+                    <li>Validate AI systems for consistency, safety, and factual accuracy.</li>
+                    <li>Identify functional, regression, and integration defects prior to release.</li>
+                    <li>Ensure digital accessibility across platforms following WCAG standards.</li>
+                    <li>Provide transparent, reproducible test documentation and defect analysis.</li>
+                    <li>Help product teams maintain high release velocity without compromising reliability.</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Portfolio Highlight Section -->
-    <!-- <section id="portfolio" class="py-5">
+<!-- Portfolio Highlight Section -->
+<!-- <section id="portfolio" class="py-5">
         <div class="container">
             <div class="row text-center">
                 <div class="col-12">
@@ -207,8 +385,8 @@
         </div>
     </section> -->
 
-    <!-- Testimonials Section -->
-    <!-- <section id="testimonials" class="py-5">
+<!-- Testimonials Section -->
+<!-- <section id="testimonials" class="py-5">
         <div class="container">
             <div class="row text-center">
                 <div class="col-12">
@@ -241,61 +419,67 @@
         </div>
     </section> -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5 light-bg">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12">
-                    <h2 class="section-title">Get In Touch</h2>
-                    <p class="section-subtitle mb-5">Discuss your product, testing needs, or quality requirements with our team.</p>
-                </div>
+<!-- Contact Section -->
+<section id="contact" class="py-5 light-bg">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle mb-5">Discuss your product, testing needs, or quality requirements with our
+                    team.</p>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="contact-form-container">
-                        <form class="contact-form" action="{{ url_for('contact') }}" method="POST">
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">Your Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-                                    </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="contact-form-container">
+                    <form class="contact-form" action="{{ url_for('contact') }}" method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                                        required>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3 mb-4">
-                                    <label for="countryCode" class="form-label">Country Code</label>
-                                    <input type="text" class="form-control" id="countryCode" name="countryCode" placeholder="+1" maxlength="4">
-                                </div>
-                                <div class="col-md-9 mb-4">
-                                    <label for="phone" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone number">
+                            <div class="col-md-6 mb-4">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                        required>
                                 </div>
                             </div>
-                            <div class="form-group mb-4">
-                                <label for="message" class="form-label">Your Message</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-4">
+                                <label for="countryCode" class="form-label">Country Code</label>
+                                <input type="text" class="form-control" id="countryCode" name="countryCode"
+                                    placeholder="+1" maxlength="4">
                             </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary px-5 py-3">Send Message</button>
+                            <div class="col-md-9 mb-4">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone"
+                                    placeholder="Phone number">
                             </div>
-                            {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                    {% for category, message in messages %}
-                                        <div class="alert alert-{{ category }} mt-4">{{ message }}</div>
-                                    {% endfor %}
-                                {% endif %}
-                            {% endwith %}
-                        </form>
-                    </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5"
+                                placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary px-5 py-3">Send Message</button>
+                        </div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} mt-4">{{ message }}</div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
