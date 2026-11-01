@@ -23,13 +23,19 @@ description: Create LinkedIn posts and matching infographics for Lukode based on
 Stay strictly within the section the user points to; keep it short.
 
 ## 3. Infographic brand style (keep broadly intact)
-- Background: smooth white → pale icy-blue gradient, optional very faint grid.
+- Background: smooth white (#FFFFFF) with subtle, organic pale-blue (#EFF6FF / #DBEAFE)
+  corner gradients. Avoid technical grid lines (they add visual noise).
 - Type: modern geometric sans (Inter/Poppins); bold dark navy (#0F172A) headline,
-  key words in royal blue (#3B82F6); gray subtitle.
-- Frosted-glass (glassmorphism) cards, soft shadows, glowing blue light lines.
-- Icons: **illustrative duotone glowing royal-blue** icons in rounded-square tiles
-  (not thin line icons).
-- Footer: "Lukode • AI & Software Quality Assurance" (blue bullet).
+  key words in royal blue (#3B82F6). Omit subtitles to preserve vertical breathing room.
+- Cards: Clean flat or subtle-elevation cards with crisp 1px borders and soft,
+  natural drop shadows (avoid heavy blurry glassmorphism or fuzzy neon halos).
+- Connectors & Dividers: Clean solid royal-blue vector arrows (↓). Dashed/cut lines
+  must be pure neutral light gray (#94A3B8) with no color tints or glow spots.
+- Badges: Solid filled circular badges (royal blue circle with white ✓, coral red
+  circle with white ✕), and solid pill badges (e.g. coral red #EF4444 for failures).
+- Icons: Illustrative duotone royal-blue icons in clean rounded-square tiles.
+- Footer: Omit the company footer when a bottom takeaway punchline is present,
+  to keep the bottom airy and uncluttered.
 - Accent colors (e.g. coral red #EF4444 for failures) only sparingly, one consistent
   placement — never duplicated on icons.
 
@@ -38,6 +44,12 @@ Stay strictly within the section the user points to; keep it short.
   - Process/pipeline/failure topics → vertical flow from input pill to output pill
     (e.g. "User question" → 5 stages → "Wrong answer").
   - Lists of pillars/metrics → isometric glass tiles are fine.
+- **Strict Information Density Rule (Simplicity & Catchiness)**:
+  - Maximum 3–5 pieces of information / stages on the graphic.
+  - The graphic is a scroll-stopper that illustrates ONE core tension or contrast;
+    all longer explanations, bullet points, and nuance belong in the post description.
+  - Preserve single-line integrity for key phrases (e.g. "Plan is $49/month").
+  - Spell out full units (use "/month", avoid abbreviations like "/mo").
 - Headline speaks to the reader's pain; closing line repeats the post's core message.
 - Default to portrait **3:4** (better feed real estate than 1:1).
 

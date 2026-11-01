@@ -54,11 +54,16 @@
     <style>
         .category-pill-badge {
             font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
+            padding: 0.3rem 0.65rem;
+            line-height: 1.35;
+            border-radius: 8px;
             font-weight: 500;
             text-decoration: none !important;
             display: inline-block;
+            vertical-align: middle;
+            text-wrap: balance;
+            max-width: 100%;
+            transition: color 0.2s ease, background-color 0.2s ease;
         }
         .post-card-title a {
             transition: color 0.2s ease;
@@ -206,11 +211,11 @@
                                 <article class="dark-bg p-4 rounded shadow-sm h-100 d-flex flex-column justify-content-between border border-secondary border-opacity-25">
                                     <div>
                                         <!-- Post Meta: Category badge & read time -->
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
+                                        <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
                                             <a href="{{ url_for('blog_category', category_slug=post.category_slug) }}" class="category-pill-badge {% if post.category_slug == 'ai-testing' %}badge-cat-ai{% elif post.category_slug == 'accessibility-compliance' %}badge-cat-wcag{% else %}badge-cat-qa{% endif %}">
                                                 <i class="{{ post.icon }} me-1"></i>{{ post.category_name }}
                                             </a>
-                                            <span class="text-muted small"><i class="far fa-clock me-1"></i>{{ post.read_time }}</span>
+                                            <span class="text-muted small text-nowrap flex-shrink-0"><i class="far fa-clock me-1"></i>{{ post.read_time }}</span>
                                         </div>
 
                                         <!-- Post Title -->
@@ -273,5 +278,36 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function adjustCategoryBadges() {
+            document.querySelectorAll('.category-pill-badge').forEach(function(badge) {
+                badge.style.width = 'auto';
+                const range = document.createRange();
+                range.selectNodeContents(badge);
+                const rects = range.getClientRects();
+                if (rects.length > 1) {
+                    let maxLineWidth = 0;
+                    for (let i = 0; i < rects.length; i++) {
+                        if (rects[i].width > maxLineWidth) {
+                            maxLineWidth = rects[i].width;
+                        }
+                    }
+                    const style = window.getComputedStyle(badge);
+                    const padLeft = parseFloat(style.paddingLeft) || 0;
+                    const padRight = parseFloat(style.paddingRight) || 0;
+                    const borderLeft = parseFloat(style.borderLeftWidth) || 0;
+                    const borderRight = parseFloat(style.borderRightWidth) || 0;
+                    badge.style.width = Math.ceil(maxLineWidth + padLeft + padRight + borderLeft + borderRight) + 'px';
+                } else {
+                    badge.style.width = 'auto';
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', adjustCategoryBadges);
+        window.addEventListener('resize', adjustCategoryBadges);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(adjustCategoryBadges);
+        }
+    </script>
 </body>
 </html>
