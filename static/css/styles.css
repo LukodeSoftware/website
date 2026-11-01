@@ -85,21 +85,46 @@ a:hover {
     text-decoration: none;
 }
 
+/* Base Button Styling */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
 .btn-primary {
     background: linear-gradient(90deg, #60a5fa, #2563eb);
-    border-color: var(--highlight-color);
+    border: 1px solid var(--highlight-color);
     color: white;
     font-weight: 500;
     border-radius: 5px;
     padding: 0.6rem 1.5rem;
     transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 .btn-primary:hover {
     background: linear-gradient(90deg, #3B82F6, #1d4ed8);
     border-color: var(--highlight-hover);
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary.btn-sm,
+.btn-outline-primary.btn-sm {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.875rem;
+}
+
+.btn-primary.btn-lg,
+.btn-outline-primary.btn-lg {
+    padding: 0.8rem 2rem;
+    font-size: 1.15rem;
 }
 
 .btn-navbar {
@@ -1346,9 +1371,16 @@ footer {
 
 .btn-outline-primary {
     color: var(--highlight-color);
-    border-color: var(--highlight-color);
+    border: 1px solid var(--highlight-color);
     background-color: transparent;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 0.6rem 1.5rem;
     transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 .btn-outline-primary:hover {
@@ -1356,6 +1388,14 @@ footer {
     background: linear-gradient(90deg, #60a5fa, #2563eb);
     border-color: var(--highlight-color);
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 /* Media Queries */
